@@ -39,6 +39,14 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
                     console.log('Email:', email);
                     console.log('Password received length:', password.length);
 
+                    // DEBUG: List all users to see what the auth process actually sees
+                    try {
+                        const allUsers = await prisma.user.findMany({ select: { email: true } });
+                        console.log('ALL USERS SEEN BY AUTH:', JSON.stringify(allUsers));
+                    } catch (e) {
+                        console.error('Error listing users:', e);
+                    }
+
                     const user = await getUser(email);
                     if (!user) {
                         console.log('User not found in DB');
