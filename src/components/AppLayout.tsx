@@ -5,7 +5,7 @@ import Navigation from './Navigation';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
-    const isLoginPage = pathname === '/login';
+    const isLoginPage = pathname === '/login' || pathname === '/register';
 
     return (
         <div className="flex min-h-screen">
