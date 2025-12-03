@@ -18,6 +18,8 @@ export async function authenticate(
                 case 'CredentialsSignin':
                     return 'Invalid credentials.';
                 default:
+                    console.error('AuthError Type:', error.type);
+                    console.error('Full AuthError:', JSON.stringify(error, null, 2));
                     return 'Something went wrong.';
             }
         }
