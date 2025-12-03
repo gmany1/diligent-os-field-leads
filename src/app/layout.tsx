@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 import Providers from '@/components/Providers';
-import Navigation from '@/components/Navigation';
+import AppLayout from '@/components/AppLayout';
 
 export default function RootLayout({
   children,
@@ -34,12 +34,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <Providers>
-          <div className="flex min-h-screen">
-            <Navigation />
-            <main className="flex-1 md:pl-64 transition-all duration-200">
-              {children}
-            </main>
-          </div>
+          <AppLayout>{children}</AppLayout>
         </Providers>
       </body>
     </html>
