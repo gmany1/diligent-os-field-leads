@@ -1,0 +1,16 @@
+
+> diligent-os-field-leads@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use by process 5600, using available port 3001 instead.
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3001
+   - Network:       http://192.168.1.9:3001
+   - Environments: .env
+
+ ✓ Starting...
+ ⨯ Unable to acquire lock at C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\lock, is another instance of next dev running?
+   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[?25h

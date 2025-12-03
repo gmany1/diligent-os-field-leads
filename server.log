@@ -1,0 +1,272 @@
+
+> diligent-os-field-leads@0.1.0 dev
+> next dev
+
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.1.9:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+ ✓ Ready in 1791ms
+ GET /login 200 in 3.3s (compile: 2.9s, proxy.ts: 166ms, render: 232ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 99ms (compile: 11ms, proxy.ts: 13ms, render: 74ms)
+ GET /login?favicon.0b3bf435.ico=&callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Ffavicon.ico%3Ffavicon.0b3bf435.ico%3D 200 in 88ms (compile: 8ms, proxy.ts: 16ms, render: 64ms)
+Initializing Prisma Client (Mock/Real)...
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\node_modules_next_5d661447._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\require-hook.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\require.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\load-components.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+Failed to initialize Prisma Client. Using Mock Client for Preview. Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:119:48)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:214:148)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:281:139)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at instantiateRuntimeModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:743:12)
+    at getOrInstantiateRuntimeModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:756:12)
+    at Object.m (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:765:18)
+    at Object.<anonymous> (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\app\api\auth\[...nextauth]\route.js:9:3)
+Initializing Prisma Client (Mock/Real)...
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+Failed to initialize Prisma Client. Using Mock Client for Preview. Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:119:48)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:214:148)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:281:139)
+ GET /api/auth/session 200 in 2.1s (compile: 2.0s, render: 52ms)
+ GET /api/auth/session 200 in 34ms (compile: 16ms, render: 18ms)
+Initializing Prisma Client (Mock/Real)...
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+Failed to initialize Prisma Client. Using Mock Client for Preview. Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:119:48)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:214:148)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:281:139)
+Initializing Prisma Client (Mock/Real)...
+authenticate action called
+Attempting login for: sal@diligentos.com
+Using mock password check
+Checking bcrypt hash
+Invalid credentials
+[31m[auth][error][0m CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
+    at Module.callback (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_@auth_core_e00e322b._.js:4314:30)
+    at async AuthInternal (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_@auth_core_e00e322b._.js:5148:24)
+    at async Auth (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_@auth_core_e00e322b._.js:5370:34)
+    at async signIn (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_c69909f6._.js:4163:17)
+    at async authenticate (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js:242:9)
+    at async executeActionAndPrepareForRender (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:35:4449)
+    at async C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:35:2264
+    at async handleAction (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:34:23622)
+    at async renderToHTMLOrFlightImpl (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:40:41714)
+    at async doRender (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js:8081:28)
+    at async AppPageRouteModule.handleResponse (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js:42:63162)
+    at async handleResponse (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js:8287:32)
+    at async handler (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js:8658:20)
+    at async DevServer.renderToResponseWithComponentsImpl (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js:1413:9)
+    at async DevServer.renderPageComponent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js:1465:24)
+    at async DevServer.renderToResponseImpl (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js:1515:32)
+    at async DevServer.pipeImpl (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js:1021:25)
+    at async NextNodeServer.handleCatchallRenderRequest (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\next-server.js:394:17)
+    at async DevServer.handleRequestImpl (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js:912:17)
+    at async C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js:382:20
+    at async Span.traceAsyncFn (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js:378:24)
+    at async invokeRender (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js:240:21)
+    at async handleRequest (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js:436:24)
+    at async requestHandlerImpl (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js:484:13)
+    at async Server.requestListener (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\start-server.js:226:13)
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_@auth_core_e00e322b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_c69909f6._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+signIn failed: CredentialsSignin: Read more at https://errors.authjs.dev#credentialssignin
+    at async authenticate (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js:242:9) {
+  type: 'CredentialsSignin',
+  kind: 'signIn',
+  code: 'credentials'
+}
+ POST /login 200 in 352ms (compile: 12ms, proxy.ts: 28ms, render: 312ms)
+ GET /login 200 in 113ms (compile: 7ms, proxy.ts: 27ms, render: 79ms)
+ GET /api/auth/session 200 in 166ms (compile: 21ms, render: 145ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 148ms (compile: 11ms, proxy.ts: 11ms, render: 126ms)
+ GET /api/auth/session 200 in 26ms (compile: 6ms, render: 21ms)
+Initializing Prisma Client (Mock/Real)...
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+Failed to initialize Prisma Client. Using Mock Client for Preview. Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:119:48)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:214:148)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:281:139)
+authenticate action called
+Attempting login for: admin@diligentos.com
+Using mock password check
+Mock password matched
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_da6e9290._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_c69909f6._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+signIn failed: Error: NEXT_REDIRECT
+    at async authenticate (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js:242:9) {
+  digest: 'NEXT_REDIRECT;push;http://localhost:3000/login;307;'
+}
+ GET /login 200 in 60ms (compile: 7ms, proxy.ts: 12ms, render: 41ms)
+ POST /login 303 in 156ms (compile: 7ms, proxy.ts: 17ms, render: 132ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 62ms (compile: 6ms, proxy.ts: 8ms, render: 48ms)
+authenticate action called
+Attempting login for: admin@diligentos.com
+Using mock password check
+Mock password matched
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_da6e9290._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_c69909f6._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+signIn failed: Error: NEXT_REDIRECT
+    at async authenticate (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js:242:9) {
+  digest: 'NEXT_REDIRECT;push;http://localhost:3000/login;307;'
+}
+ GET /login 200 in 63ms (compile: 6ms, proxy.ts: 16ms, render: 41ms)
+ POST /login 303 in 153ms (compile: 8ms, proxy.ts: 21ms, render: 123ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 74ms (compile: 6ms, proxy.ts: 6ms, render: 61ms)
+ GET /login 200 in 86ms (compile: 7ms, proxy.ts: 16ms, render: 63ms)
+ GET /api/auth/session 200 in 64ms (compile: 30ms, render: 34ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 164ms (compile: 4ms, proxy.ts: 7ms, render: 152ms)
+ GET /api/auth/session 200 in 17ms (compile: 3ms, render: 14ms)
+ GET /api/auth/session 200 in 17ms (compile: 4ms, render: 13ms)
+ GET /login?favicon.0b3bf435.ico=&callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Ffavicon.ico%3Ffavicon.0b3bf435.ico%3D 200 in 56ms (compile: 5ms, proxy.ts: 5ms, render: 46ms)
+Initializing Prisma Client (Mock/Real)...
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+Failed to initialize Prisma Client. Using Mock Client for Preview. Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:119:48)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:214:148)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:281:139)
+ GET /login?favicon.0b3bf435.ico=&callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Ffavicon.ico%3Ffavicon.0b3bf435.ico%3D 200 in 60ms (compile: 8ms, proxy.ts: 7ms, render: 45ms)
+ GET /login 200 in 109ms (compile: 11ms, proxy.ts: 14ms, render: 83ms)
+ GET /api/auth/session 200 in 129ms (compile: 19ms, render: 111ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 125ms (compile: 10ms, proxy.ts: 9ms, render: 106ms)
+ GET /api/auth/session 200 in 29ms (compile: 5ms, render: 25ms)
+ GET /api/auth/session 200 in 23ms (compile: 5ms, render: 18ms)
+Initializing Prisma Client (Mock/Real)...
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+Failed to initialize Prisma Client. Using Mock Client for Preview. Error: @prisma/client did not initialize yet. Please run "prisma generate" and try to import it again.
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:119:48)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:214:148)
+    at instantiateModule (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:715:9)
+    at getOrInstantiateModuleFromParent (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:738:12)
+    at Context.esmImport [as i] (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[turbopack]_runtime.js:228:20)
+    at module evaluation (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\[root-of-the-server]__62d1fd9d._.js:281:139)
+authenticate action called
+Attempting login for: admin@diligentos.com
+Using mock password check
+Mock password matched
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_da6e9290._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_c69909f6._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+signIn failed: Error: NEXT_REDIRECT
+    at async authenticate (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js:242:9) {
+  digest: 'NEXT_REDIRECT;push;http://localhost:3000/login;307;'
+}
+ GET /login 200 in 54ms (compile: 6ms, proxy.ts: 12ms, render: 36ms)
+ POST /login 303 in 141ms (compile: 7ms, proxy.ts: 20ms, render: 114ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 76ms (compile: 7ms, proxy.ts: 8ms, render: 61ms)
+authenticate action called
+Attempting login for: admin@diligentos.com
+Using mock password check
+Mock password matched
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_da6e9290._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_c69909f6._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\node_modules_next_dist_92d1e3ed._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+signIn failed: Error: NEXT_REDIRECT
+    at async authenticate (C:\Users\gmany\.gemini\antigravity\scratch\diligent-os-field-leads\.next\dev\server\chunks\ssr\[root-of-the-server]__098ec8f4._.js:242:9) {
+  digest: 'NEXT_REDIRECT;push;http://localhost:3000/login;307;'
+}
+ GET /login 200 in 63ms (compile: 6ms, proxy.ts: 13ms, render: 44ms)
+ POST /login 303 in 143ms (compile: 10ms, proxy.ts: 30ms, render: 103ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 79ms (compile: 7ms, proxy.ts: 6ms, render: 66ms)
+ GET /login 200 in 314ms (compile: 208ms, proxy.ts: 13ms, render: 93ms)
+ GET /login 200 in 76ms (compile: 8ms, proxy.ts: 22ms, render: 45ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 132ms (compile: 5ms, proxy.ts: 6ms, render: 121ms)
+ GET /login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fmanifest.webmanifest 200 in 63ms (compile: 6ms, proxy.ts: 7ms, render: 50ms)

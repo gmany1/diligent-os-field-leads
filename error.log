@@ -1,0 +1,31 @@
+[1m[31mError: [39m[22m[31m[1mPrisma schema validation[22m[39m - (get-dmmf wasm)
+Error code: P1012
+[31m[1m[1;91merror[0m: [1mError validating: You defined the enum `Role`. But the current connector does not support enums.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:10[0m
+[1;94m   | [0m
+[1;94m 9 | [0m
+[1;94m10 | [0m[1;91menum Role {[0m
+[1;94m11 | [0m  EXECUTIVE
+[1;94m12 | [0m  MANAGER
+[1;94m13 | [0m  FIELD_LEAD_REP
+[1;94m14 | [0m  IT_ADMIN
+[1;94m15 | [0m}
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating: You defined the enum `LeadStage`. But the current connector does not support enums.[0m
+  [1;94m-->[0m  [4mprisma\schema.prisma:17[0m
+[1;94m   | [0m
+[1;94m16 | [0m
+[1;94m17 | [0m[1;91menum LeadStage {[0m
+[1;94m18 | [0m  COLD
+[1;94m19 | [0m  WARM
+[1;94m20 | [0m  HOT
+[1;94m21 | [0m  QUOTE
+[1;94m22 | [0m  WON
+[1;94m23 | [0m  LOST
+[1;94m24 | [0m}
+[1;94m   | [0m
+
+Validation Error Count: 2[22m[39m
+[Context: getDmmf]
+
+Prisma CLI Version : 5.19.1
