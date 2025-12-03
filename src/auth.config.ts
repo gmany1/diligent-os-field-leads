@@ -10,6 +10,12 @@ export const authConfig = {
             const isOnDashboard = nextUrl.pathname.startsWith('/');
             const isOnLogin = nextUrl.pathname.startsWith('/login');
 
+            console.log('Middleware Authorized Check:', {
+                path: nextUrl.pathname,
+                isLoggedIn,
+                user: auth?.user?.email
+            });
+
             if (isOnDashboard) {
                 if (isOnLogin) return true; // Always allow access to login page
                 if (isLoggedIn) return true;
