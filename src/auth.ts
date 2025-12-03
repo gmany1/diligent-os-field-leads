@@ -7,15 +7,21 @@ import bcrypt from 'bcryptjs';
 
 // const prisma = new PrismaClient(); // Removed local instantiation
 
+import { PrismaClient } from '@prisma/client';
+
 async function getUser(email: string) {
+    const localPrisma = new PrismaClient(); // Force new connection
     try {
         console.log('getUser called for:', email);
         console.log('Current DATABASE_URL:', process.env.DATABASE_URL);
-        const user = await prisma.user.findUnique({
+
+        const user = await localPrisma.user.findUnique({
             where: { email },
         });
+        await localPrisma.$disconnect();
         return user;
     } catch (error) {
+        await localPrisma.$disconnect();
         console.error('Failed to fetch user:', error);
         throw new Error('Failed to fetch user.');
     }
