@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:c:/Users/gmany/.gemini/antigravity/scratch/diligent-os-field-leads/dev.db"
+  url      = env("DATABASE_URL")
 }
 
 // Enums removed for SQLite compatibility
