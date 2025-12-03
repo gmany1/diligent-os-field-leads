@@ -11,6 +11,8 @@ export default function Navigation() {
     const { data: session } = useSession();
     const [isOpen, setIsOpen] = useState(false);
 
+    if (pathname === '/login') return null;
+
     const navigation = [
         { name: 'Dashboard', href: '/', icon: LayoutDashboard },
         { name: 'CRM', href: '/crm', icon: Menu },
