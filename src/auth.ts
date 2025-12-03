@@ -33,15 +33,19 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
 
                 if (parsedCredentials.success) {
                     const { email, password } = parsedCredentials.data;
-                    console.log('Attempting login for:', email);
+                    console.log('--- LOGIN ATTEMPT ---');
+                    console.log('Email:', email);
+                    console.log('Password received length:', password.length);
+
                     const user = await getUser(email);
                     if (!user) {
-                        console.log('User not found');
+                        console.log('User not found in DB');
                         return null;
                     }
 
-                    // Mock Bypass Removed for Security
-                    // if ((user as any).mockPassword) { ... }
+                    console.log('User found:', user.email);
+                    console.log('Stored hash length:', user.password.length);
+                    console.log('Stored hash prefix:', user.password.substring(0, 10));
 
                     // TEMPORARY DEBUG BYPASS
                     if (password === 'password123') {
@@ -49,8 +53,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
                         return user;
                     }
 
-                    console.log('Checking bcrypt hash');
+                    console.log('Executing bcrypt.compare...');
                     const passwordsMatch = await bcrypt.compare(password, user.password);
+                    console.log('bcrypt.compare result:', passwordsMatch);
+                    console.log('-----------------------');
+
                     if (passwordsMatch) return user;
                 }
 
