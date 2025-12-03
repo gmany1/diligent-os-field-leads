@@ -9,6 +9,8 @@ import bcrypt from 'bcryptjs';
 
 async function getUser(email: string) {
     try {
+        console.log('getUser called for:', email);
+        console.log('Current DATABASE_URL:', process.env.DATABASE_URL);
         const user = await prisma.user.findUnique({
             where: { email },
         });
