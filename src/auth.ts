@@ -44,7 +44,6 @@ async function getUser(email: string) {
 export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig,
     trustHost: true,
-    useSecureCookies: false, // DEBUG: Disable secure cookies temporarily
     session: { strategy: 'jwt' },
     providers: [
         Credentials({
