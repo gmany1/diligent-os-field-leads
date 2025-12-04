@@ -1,0 +1,15 @@
+{
+  "count": 2,
+  "users": [
+    {
+      "email": "admin@diligentos.com",
+      "name": "Admin User",
+      "role": "IT_ADMIN"
+    },
+    {
+      "email": "rep@diligentos.com",
+      "name": "Field Rep",
+      "role": "FIELD_LEAD_REP"
+    }
+  ]
+}

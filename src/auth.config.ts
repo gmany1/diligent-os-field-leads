@@ -16,13 +16,16 @@ export const authConfig = {
                 user: auth?.user?.email
             });
 
+            if (isOnLogin) {
+                if (isLoggedIn) return Response.redirect(new URL('/', nextUrl));
+                return true;
+            }
+
             if (isOnDashboard) {
-                if (isOnLogin) return true; // Always allow access to login page
                 if (isLoggedIn) return true;
                 return false; // Redirect unauthenticated users to login page
-            } else if (isLoggedIn) {
-                return Response.redirect(new URL('/', nextUrl));
             }
+
             return true;
         },
         async jwt({ token, user }) {

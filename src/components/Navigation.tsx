@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { LayoutDashboard, History, Database, LogOut, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function Navigation() {
     const pathname = usePathname();
@@ -70,11 +71,14 @@ export default function Navigation() {
                     </div>
 
                     <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-                        <div className="flex items-center mb-4">
-                            <div className="ml-3">
-                                <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{session?.user?.name || 'User'}</p>
-                                <p className="text-xs text-gray-500 dark:text-gray-400 truncate w-48">{session?.user?.email}</p>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center">
+                                <div className="ml-3">
+                                    <p className="text-sm font-medium text-gray-700 dark:text-gray-200">{session?.user?.name || 'User'}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate w-48">{session?.user?.email}</p>
+                                </div>
                             </div>
+                            <ThemeToggle />
                         </div>
                         <button
                             onClick={() => signOut()}

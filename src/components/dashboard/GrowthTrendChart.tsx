@@ -25,7 +25,13 @@ const DATA = [
     { month: 'Oct', revenue: 310000 },
 ];
 
+import { useMounted } from '@/hooks/useMounted';
+
 export default function GrowthTrendChart() {
+    const mounted = useMounted();
+
+    if (!mounted) return <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 h-full animate-pulse" />;
+
     return (
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 h-full">
             <div className="flex justify-between items-center mb-6">
@@ -39,8 +45,8 @@ export default function GrowthTrendChart() {
                 </div>
             </div>
 
-            <div className="h-[300px] w-full min-w-0">
-                <ResponsiveContainer width="99%" height="100%" debounce={200}>
+            <div className="h-[300px] w-full min-w-0 relative">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <AreaChart data={DATA} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorRevenueGrowth" x1="0" y1="0" x2="0" y2="1">

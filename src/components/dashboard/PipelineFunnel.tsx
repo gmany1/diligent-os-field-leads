@@ -9,7 +9,9 @@ const DATA = [
     { value: 5, name: 'Won', fill: '#10b981' },
 ];
 
-export default function PipelineFunnel() {
+export default function PipelineFunnel({ data }: { data?: any[] }) {
+    const chartData = data || DATA;
+
     return (
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 h-full">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Pipeline Health</h3>
@@ -19,11 +21,11 @@ export default function PipelineFunnel() {
                         <Tooltip />
                         <Funnel
                             dataKey="value"
-                            data={DATA}
+                            data={chartData}
                             isAnimationActive
                         >
                             <LabelList position="right" fill="#6b7280" stroke="none" dataKey="name" />
-                            {DATA.map((entry, index) => (
+                            {chartData.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={entry.fill} />
                             ))}
                         </Funnel>

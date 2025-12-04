@@ -2,46 +2,100 @@
 
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const MOCK_USERS = [
-    { id: '1', name: 'Manuel Cardenas', email: 'manuel@diligent.com', role: 'FIELD_LEAD_REP', territory: 'Los Angeles' },
-    { id: '2', name: 'Jesus Ramos', email: 'jesus@diligent.com', role: 'MANAGER', territory: 'Los Angeles Branch' },
-    { id: '3', name: 'Ana I. Gonzalez', email: 'ana.g@diligent.com', role: 'MANAGER', territory: 'Operations Director' },
-    { id: '4', name: 'Dullian Lopez', email: 'dullian@diligent.com', role: 'MANAGER', territory: 'San Antonio Branch' },
-    { id: '5', name: 'Jorge Ayala', email: 'jorge@diligent.com', role: 'IT_ADMIN', territory: 'Global' },
-    { id: '6', name: 'Sal Ingles', email: 'sal@diligent.com', role: 'EXECUTIVE', territory: 'Global' },
-];
+// Fetchers
+const fetchUsers = async () => {
+    const res = await fetch('/api/users');
+    if (!res.ok) throw new Error('Failed to fetch users');
+    const json = await res.json();
+    return json.data || [];
+};
 
 export default function UserManagement() {
-    const [users, setUsers] = useState(MOCK_USERS);
+    const queryClient = useQueryClient();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<any>(null);
-    const [formData, setFormData] = useState({ name: '', email: '', role: 'FIELD_LEAD_REP', territory: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', role: 'FIELD_LEAD_REP', territory: '', password: '' });
+
+    const { data: users = [], isLoading } = useQuery({
+        queryKey: ['users'],
+        queryFn: fetchUsers,
+    });
+
+    const createUserMutation = useMutation({
+        mutationFn: async (data: any) => {
+            const res = await fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (!res.ok) {
+                const error = await res.json();
+                throw new Error(error.error || 'Failed to create user');
+            }
+            return res.json();
+        },
+        onSuccess: () => {
+            toast.success('User created successfully');
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+            setIsModalOpen(false);
+        },
+        onError: (error: any) => {
+            toast.error(error.message);
+        }
+    });
+
+    const updateUserMutation = useMutation({
+        mutationFn: async ({ id, data }: { id: string; data: any }) => {
+            const res = await fetch(`/api/users/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (!res.ok) {
+                const error = await res.json();
+                throw new Error(error.error || 'Failed to update user');
+            }
+            return res.json();
+        },
+        onSuccess: () => {
+            toast.success('User updated successfully');
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+            setIsModalOpen(false);
+        },
+        onError: (error: any) => {
+            toast.error(error.message);
+        }
+    });
 
     const handleAddClick = () => {
         setEditingUser(null);
-        setFormData({ name: '', email: '', role: 'FIELD_LEAD_REP', territory: '' });
+        setFormData({ name: '', email: '', role: 'FIELD_LEAD_REP', territory: '', password: '' });
         setIsModalOpen(true);
     };
 
     const handleCardClick = (user: any) => {
         setEditingUser(user);
-        setFormData({ name: user.name, email: user.email, role: user.role, territory: user.territory });
+        // Don't populate password for edit
+        setFormData({ name: user.name || '', email: user.email, role: user.role, territory: user.territory || '', password: '' });
         setIsModalOpen(true);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (editingUser) {
-            setUsers(users.map(u => u.id === editingUser.id ? { ...u, ...formData } : u));
-            toast.success(`User ${formData.name} updated successfully!`);
+            updateUserMutation.mutate({ id: editingUser.id, data: formData });
         } else {
-            const newUser = { id: Date.now().toString(), ...formData };
-            setUsers([...users, newUser]);
-            toast.success(`User ${formData.name} created successfully!`);
+            if (!formData.password) {
+                toast.error('Password is required for new users');
+                return;
+            }
+            createUserMutation.mutate(formData);
         }
-        setIsModalOpen(false);
     };
+
+    if (isLoading) return <div className="p-6 text-center">Loading users...</div>;
 
     return (
         <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl h-auto flex flex-col">
@@ -65,7 +119,7 @@ export default function UserManagement() {
             {/* Content Section - Grid Layout - Removed internal scroll, max 2 columns */}
             <div className="p-4 sm:p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-[12px] w-full">
-                    {users.map((user) => (
+                    {users.map((user: any) => (
                         <div
                             key={user.id}
                             onClick={() => handleCardClick(user)}
@@ -74,10 +128,10 @@ export default function UserManagement() {
                             {/* Header: Avatar + Edit Icon */}
                             <div className="flex items-center justify-between">
                                 <div className={`w-[42px] h-[42px] text-[16px] rounded-full flex-shrink-0 flex items-center justify-center text-white font-bold shadow-sm ${user.role === 'IT_ADMIN' ? 'bg-purple-600' :
-                                        user.role === 'MANAGER' ? 'bg-blue-600' :
-                                            'bg-emerald-600'
+                                    user.role === 'MANAGER' ? 'bg-blue-600' :
+                                        'bg-emerald-600'
                                     }`}>
-                                    {user.name[0]}
+                                    {user.name ? user.name[0] : '?'}
                                 </div>
                                 <div className="w-[16px] h-[16px] opacity-60 text-gray-500 dark:text-gray-400">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -90,7 +144,7 @@ export default function UserManagement() {
                             {/* Info Block */}
                             <div className="flex flex-col gap-[2px] break-words">
                                 <div className="text-[16px] font-semibold text-gray-900 dark:text-white leading-tight">
-                                    {user.name}
+                                    {user.name || 'Unnamed'}
                                 </div>
                                 <div className="text-[13px] text-gray-500 dark:text-gray-400 leading-tight">
                                     {user.email}
@@ -100,8 +154,8 @@ export default function UserManagement() {
                             {/* Badges */}
                             <div className="flex flex-wrap gap-2 mt-1">
                                 <span className={`inline-flex px-[8px] py-[4px] text-[12px] rounded-[6px] flex-wrap max-w-full font-medium ${user.role === 'IT_ADMIN' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' :
-                                        user.role === 'MANAGER' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
-                                            'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300'
+                                    user.role === 'MANAGER' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
+                                        'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300'
                                     }`}>
                                     {user.role.replace(/_/g, ' ')}
                                 </span>
@@ -150,6 +204,17 @@ export default function UserManagement() {
                                 />
                             </div>
                             <div>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                                <input
+                                    type="password"
+                                    className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-2 px-3"
+                                    value={formData.password}
+                                    onChange={e => setFormData({ ...formData, password: e.target.value })}
+                                    placeholder={editingUser ? "Leave blank to keep current" : "Required for new user"}
+                                    required={!editingUser}
+                                />
+                            </div>
+                            <div>
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role</label>
                                 <select
                                     className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white py-2 px-3"
@@ -182,9 +247,10 @@ export default function UserManagement() {
                                 </button>
                                 <button
                                     type="submit"
-                                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm"
+                                    disabled={createUserMutation.isPending || updateUserMutation.isPending}
+                                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors shadow-sm disabled:opacity-50"
                                 >
-                                    {editingUser ? 'Save Changes' : 'Create User'}
+                                    {createUserMutation.isPending || updateUserMutation.isPending ? 'Saving...' : (editingUser ? 'Save Changes' : 'Create User')}
                                 </button>
                             </div>
                         </form>

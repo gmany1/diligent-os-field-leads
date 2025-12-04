@@ -20,12 +20,18 @@ const DATA = [
     { day: 'Sun', logins: 21 },
 ];
 
+import { useMounted } from '@/hooks/useMounted';
+
 export default function SystemActivityChart() {
+    const mounted = useMounted();
+
+    if (!mounted) return <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 h-full animate-pulse" />;
+
     return (
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 h-full">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">System Activity</h3>
-            <div className="h-[250px] w-full min-w-0">
-                <ResponsiveContainer width="99%" height="100%" debounce={200}>
+            <div className="h-[250px] w-full min-w-0 relative">
+                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                     <AreaChart data={DATA} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                         <defs>
                             <linearGradient id="colorLogins" x1="0" y1="0" x2="0" y2="1">

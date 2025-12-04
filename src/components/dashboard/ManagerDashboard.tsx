@@ -6,6 +6,7 @@ import TeamPerformance from './TeamPerformance';
 import RecentWins from './RecentWins'; // Keeping RecentWins as it fits "Validation"
 import RevenueProjectionChart from './RevenueProjectionChart';
 import PipelineFunnel from './PipelineFunnel';
+import SourceEffectivenessChart from './SourceEffectivenessChart';
 
 export default function ManagerDashboard() {
     const { data: statsData, isLoading } = useQuery({
@@ -35,7 +36,7 @@ export default function ManagerDashboard() {
         <div className="space-y-8">
             {/* 1. The Vision (Control) - Top KPIs */}
             <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Hola, Jesus (LA Branch)</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Hello, Jesus (LA Branch)</h2>
                 <p className="text-sm text-gray-500 mb-6">Here is your branch performance overview.</p>
 
                 {/* Manager KPIs */}
@@ -78,13 +79,18 @@ export default function ManagerDashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* KPI 2: Pipeline Health (Funnel) */}
                 <div className="h-[400px]">
-                    <PipelineFunnel />
+                    <PipelineFunnel data={statsData?.data?.funnelData} />
                 </div>
 
                 {/* Revenue Projection Chart (Visualizing the trend) */}
                 <div className="lg:col-span-2 h-[400px]">
                     <RevenueProjectionChart />
                 </div>
+            </div>
+
+            {/* Source Effectiveness */}
+            <div className="h-auto">
+                <SourceEffectivenessChart data={statsData?.data?.sourceEffectiveness} />
             </div>
 
             {/* KPI 1: Team Performance (Detailed View) */}
