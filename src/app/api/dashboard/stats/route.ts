@@ -28,9 +28,9 @@ export async function GET(request: Request) {
         });
 
         // Calculate Stats
-        const wonLeads = leads.filter(l => l.stage === 'WON');
-        const activeLeads = leads.filter(l => ['WARM', 'HOT', 'QUOTE', 'NEGOTIATION'].includes(l.stage));
-        const lostLeads = leads.filter(l => l.stage === 'LOST');
+        const wonLeads = leads.filter((l: any) => l.stage === 'WON');
+        const activeLeads = leads.filter((l: any) => ['WARM', 'HOT', 'QUOTE', 'NEGOTIATION'].includes(l.stage));
+        const lostLeads = leads.filter((l: any) => l.stage === 'LOST');
 
         // Revenue: Sum of accepted quotes or won leads value (if we had a value field on Lead, but we have Quotes)
         // Let's assume revenue comes from accepted quotes for now, or we can add a 'value' field to Lead if needed.
