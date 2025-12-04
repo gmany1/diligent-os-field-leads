@@ -45,11 +45,11 @@ export async function GET(request: Request) {
         }, 0);
 
         // Pipeline: Sum of active quotes
-        const pipeline = leads.reduce((sum, lead) => {
+        const pipeline = leads.reduce((sum: number, lead: any) => {
             if (['WARM', 'HOT', 'QUOTE'].includes(lead.stage)) {
                 // Sum all draft/sent quotes? Or just the latest? Let's sum all non-rejected.
-                const activeQuotes = lead.quotes.filter(q => ['DRAFT', 'SENT'].includes(q.status));
-                const leadValue = activeQuotes.reduce((qSum, q) => qSum + Number(q.amount), 0);
+                const activeQuotes = lead.quotes.filter((q: any) => ['DRAFT', 'SENT'].includes(q.status));
+                const leadValue = activeQuotes.reduce((qSum: number, q: any) => qSum + Number(q.amount), 0);
                 return sum + leadValue;
             }
             return sum;
