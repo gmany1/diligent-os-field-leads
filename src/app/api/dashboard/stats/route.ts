@@ -60,9 +60,9 @@ export async function GET(request: Request) {
 
         // Funnel Data
         const funnelData = [
-            { name: 'New', value: leads.filter(l => l.stage === 'COLD').length, fill: '#6366f1' },
-            { name: 'Contacted', value: leads.filter(l => l.stage === 'WARM').length, fill: '#8b5cf6' },
-            { name: 'Proposal', value: leads.filter(l => l.stage === 'QUOTE').length, fill: '#ec4899' },
+            { name: 'New', value: leads.filter((l: any) => l.stage === 'COLD').length, fill: '#6366f1' },
+            { name: 'Contacted', value: leads.filter((l: any) => l.stage === 'WARM').length, fill: '#8b5cf6' },
+            { name: 'Proposal', value: leads.filter((l: any) => l.stage === 'QUOTE').length, fill: '#ec4899' },
             { name: 'Won', value: wonLeads.length, fill: '#10b981' },
         ];
 
