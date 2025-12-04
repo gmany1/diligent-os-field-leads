@@ -67,7 +67,7 @@ export async function GET(request: Request) {
         ];
 
         // Source Effectiveness
-        const sourceStats = leads.reduce((acc: any, lead) => {
+        const sourceStats = leads.reduce((acc: any, lead: any) => {
             const source = lead.source || 'Unknown';
             if (!acc[source]) {
                 acc[source] = { name: source, total: 0, won: 0, value: 0 };
