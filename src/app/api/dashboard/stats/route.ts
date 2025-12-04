@@ -36,9 +36,9 @@ export async function GET(request: Request) {
         // Let's assume revenue comes from accepted quotes for now, or we can add a 'value' field to Lead if needed.
         // The previous code assumed 'l.value'. Let's check schema. Quote has amount.
         // We'll sum up amounts of accepted quotes for WON leads.
-        const revenue = leads.reduce((sum, lead) => {
+        const revenue = leads.reduce((sum: number, lead: any) => {
             if (lead.stage === 'WON') {
-                const wonQuote = lead.quotes.find(q => q.status === 'ACCEPTED');
+                const wonQuote = lead.quotes.find((q: any) => q.status === 'ACCEPTED');
                 return sum + (wonQuote ? Number(wonQuote.amount) : 0);
             }
             return sum;
