@@ -12,4 +12,8 @@ echo "Checking Prisma Client directory:"
 ls -l /app/node_modules/.prisma/client/
 echo "--- END DEBUG INFO ---"
 
+echo "Running migrations..."
+npx prisma db push --accept-data-loss
+echo "Migrations completed."
+
 exec "$@"
