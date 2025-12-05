@@ -142,3 +142,26 @@ npm install # Si añadiste nuevas librerías
 npm run build
 pm2 restart diligent-os
 ```
+
+## 7. Despliegue con Docker (Coolify / Portainer)
+
+Si prefieres usar Docker (o plataformas como Coolify), el proyecto ya incluye un `Dockerfile` optimizado.
+
+### Requisitos
+- Docker y Docker Compose instalados en el servidor.
+
+### Pasos
+1.  **Clonar el repositorio** (igual que en el paso 4).
+2.  **Configurar variables de entorno**:
+    Crea un archivo `.env` con las variables necesarias.
+3.  **Construir y levantar el contenedor**:
+    ```bash
+    docker-compose up -d --build
+    ```
+
+### Notas sobre Prisma y OpenSSL
+El `Dockerfile` ha sido configurado para usar `node:20-slim` (Debian) para asegurar compatibilidad con las librerías de OpenSSL requeridas por Prisma. Si encuentras errores de "libssl", asegúrate de estar usando la última versión del código y reconstruye la imagen sin caché:
+```bash
+docker-compose build --no-cache
+docker-compose up -d
+```
