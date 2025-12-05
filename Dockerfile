@@ -57,6 +57,9 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Copy prisma schema for runtime access
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+
 # Copy and setup entrypoint
 COPY entrypoint.sh ./
 RUN chmod +x entrypoint.sh
