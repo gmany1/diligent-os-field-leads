@@ -12,6 +12,9 @@ echo "Checking Prisma Client directory:"
 ls -l /app/node_modules/.prisma/client/
 echo "--- END DEBUG INFO ---"
 
+echo "Generating Prisma Client..."
+./node_modules/.bin/prisma generate
+
 echo "Running migrations..."
 # Usar la versión local de Prisma, no npx
 ./node_modules/.bin/prisma db push --accept-data-loss --skip-generate
