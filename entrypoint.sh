@@ -13,9 +13,17 @@ ls -l /app/node_modules/.prisma/client/
 echo "--- END DEBUG INFO ---"
 
 echo "Running migrations..."
-# Set HOME to /tmp to avoid npx permission issues in read-only environments
+# Set HOME to /tmp to avoid npx permission issues, but use local binary to match version
 export HOME=/tmp
-npx prisma db push --accept-data-loss
+# Check for local binary in standard location or fallback to one in node_modules/.bin
+if [ -f "./node_modules/.bin/prisma" ]; then
+  PRISMA_CMD="./node_modules/.bin/prisma"
+else
+  PRISMA_CMD="npx prisma"
+fi
+
+echo "Using Prisma CLI at: $PRISMA_CMD"
+$PRISMA_CMD db push --accept-data-loss
 
 echo "Running seed..."
 node seed.js

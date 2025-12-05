@@ -1,9 +1,11 @@
 const { PrismaClient } = require('@prisma/client')
+const bcrypt = require('bcryptjs')
 
 const prisma = new PrismaClient()
 
 async function main() {
     console.log('Starting seed...')
+    const hashedPassword = await bcrypt.hash('password123', 10)
 
     try {
         // 1. Create Admin User
@@ -14,6 +16,7 @@ async function main() {
                 email: 'admin@diligentos.com',
                 name: 'Admin User',
                 role: 'MANAGER',
+                password: hashedPassword,
             },
         })
         console.log('Admin created:', admin)
@@ -26,6 +29,7 @@ async function main() {
                 email: 'rep@diligentos.com',
                 name: 'Field Rep',
                 role: 'FIELD_LEAD_REP',
+                password: hashedPassword,
             },
         })
         console.log('Rep created:', rep)
