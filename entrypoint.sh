@@ -2,6 +2,8 @@
 echo "--- DEBUG INFO ---"
 echo "OpenSSL Version:"
 openssl version
+echo "Architecture:"
+uname -m
 echo "Checking for libssl.so.1.1:"
 find / -name "libssl.so.1.1" 2>/dev/null
 echo "Checking for libssl.so.3:"
