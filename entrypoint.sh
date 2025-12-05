@@ -13,8 +13,9 @@ ls -l /app/node_modules/.prisma/client/
 echo "--- END DEBUG INFO ---"
 
 echo "Running migrations..."
-# Use direct binary path to avoid npx cache permission issues (EACCES /nonexistent)
-./node_modules/.bin/prisma db push --accept-data-loss
+# Set HOME to /tmp to avoid npx permission issues in read-only environments
+export HOME=/tmp
+npx prisma db push --accept-data-loss
 
 echo "Running seed..."
 node seed.js
