@@ -11,7 +11,9 @@ async function main() {
         // 1. Create Admin User
         const admin = await prisma.user.upsert({
             where: { email: 'admin@diligentos.com' },
-            update: {},
+            update: {
+                password: hashedPassword, // Ensure password is reset if user exists
+            },
             create: {
                 email: 'admin@diligentos.com',
                 name: 'Admin User',
@@ -24,7 +26,9 @@ async function main() {
         // 2. Create Field Rep
         const rep = await prisma.user.upsert({
             where: { email: 'rep@diligentos.com' },
-            update: {},
+            update: {
+                password: hashedPassword, // Ensure password is reset if user exists
+            },
             create: {
                 email: 'rep@diligentos.com',
                 name: 'Field Rep',

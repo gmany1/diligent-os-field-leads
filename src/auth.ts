@@ -30,12 +30,23 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
 
                 if (parsedCredentials.success) {
                     const { email, password } = parsedCredentials.data;
+                    console.log(`[Auth] Attempting login for: ${email}`);
 
                     const user = await getUser(email);
-                    if (!user) return null;
+                    if (!user) {
+                        console.log(`[Auth] User not found: ${email}`);
+                        return null;
+                    }
 
                     const passwordsMatch = await bcrypt.compare(password, user.password);
-                    if (passwordsMatch) return user;
+                    if (passwordsMatch) {
+                        console.log(`[Auth] Login successful for: ${email}`);
+                        return user;
+                    } else {
+                        console.log(`[Auth] Password mismatch for: ${email}`);
+                    }
+                } else {
+                    console.log('[Auth] Invalid credentials format');
                 }
 
                 return null;
