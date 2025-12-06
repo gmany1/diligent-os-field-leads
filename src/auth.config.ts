@@ -4,10 +4,20 @@ export const authConfig = {
     pages: {
         signIn: '/login',
     },
+    cookies: {
+        sessionToken: {
+            name: `__Secure-authjs.session-token`,
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: true,
+            },
+        },
+    },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isOnDashboard = nextUrl.pathname.startsWith('/');
             const isOnLogin = nextUrl.pathname.startsWith('/login');
 
             console.log('Middleware Authorized Check:', {
@@ -21,12 +31,8 @@ export const authConfig = {
                 return true;
             }
 
-            if (isOnDashboard) {
-                if (isLoggedIn) return true;
-                return false; // Redirect unauthenticated users to login page
-            }
-
-            return true;
+            if (isLoggedIn) return true;
+            return false;
         },
         async jwt({ token, user }) {
             if (user) {
@@ -43,5 +49,5 @@ export const authConfig = {
             return session;
         },
     },
-    providers: [], // Add providers with an empty array for now
+    providers: [],
 } satisfies NextAuthConfig;
