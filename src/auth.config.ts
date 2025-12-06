@@ -4,17 +4,6 @@ export const authConfig = {
     pages: {
         signIn: '/login',
     },
-    cookies: {
-        sessionToken: {
-            name: `__Secure-authjs.session-token`,
-            options: {
-                httpOnly: true,
-                sameSite: 'lax',
-                path: '/',
-                secure: true,
-            },
-        },
-    },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
