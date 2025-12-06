@@ -10,7 +10,12 @@ export default function LoginPage() {
         undefined,
     );
 
-    console.log('Login Page Render. Error Message:', errorMessage);
+    // console.log('Login Page Render. Error Message:', errorMessage);
+
+    if (errorMessage === 'success') {
+        window.location.href = '/';
+        return null; // Or a loading spinner
+    }
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-gray-50 dark:bg-gray-900 h-screen">

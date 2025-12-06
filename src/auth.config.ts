@@ -7,7 +7,8 @@ export const authConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isOnLogin = nextUrl.pathname.startsWith('/login');
+            const isOnLogin = nextUrl.pathname === '/login';
+            const isApi = nextUrl.pathname.startsWith('/api/auth');
 
             console.log('Middleware Authorized Check:', {
                 path: nextUrl.pathname,
@@ -15,13 +16,14 @@ export const authConfig = {
                 user: auth?.user?.email
             });
 
-            if (isOnLogin) {
-                if (isLoggedIn) return Response.redirect(new URL('/', nextUrl));
-                return true;
-            }
+            // Siempre permitir rutas de auth
+            if (isApi) return true;
 
-            if (isLoggedIn) return true;
-            return false;
+            // Permitir página de login
+            if (isOnLogin) return true;
+
+            // Proteger otras rutas
+            return isLoggedIn;
         },
         async jwt({ token, user }) {
             if (user) {
