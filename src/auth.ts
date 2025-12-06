@@ -21,6 +21,17 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
     ...authConfig,
     trustHost: true,
     session: { strategy: 'jwt' },
+    cookies: {
+        sessionToken: {
+            name: 'authjs.session-token',
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: process.env.NODE_ENV === 'production',
+            },
+        },
+    },
     providers: [
         Credentials({
             async authorize(credentials) {
