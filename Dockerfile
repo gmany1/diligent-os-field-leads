@@ -58,7 +58,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 COPY entrypoint.sh ./
 COPY switch-db.js ./
-COPY prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 
 # Install dependencies for migration, seeding, and runtime scripts
 # We need bcryptjs for seeding, and prisma/tsx for executing commands
