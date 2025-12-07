@@ -3,12 +3,21 @@
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
+import { LoginSchema } from '@/lib/schemas';
+
 export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
 ) {
+    const rawData = Object.fromEntries(formData);
+    const validatedFields = LoginSchema.safeParse(rawData);
+
+    if (!validatedFields.success) {
+        return 'Invalid credentials format.';
+    }
+
     try {
-        await signIn('credentials', { ...Object.fromEntries(formData), redirect: false });
+        await signIn('credentials', { ...validatedFields.data, redirect: true, redirectTo: '/' });
         return 'success';
     } catch (error) {
         if (error instanceof AuthError) {

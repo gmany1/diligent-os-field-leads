@@ -4,21 +4,61 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-// Enums removed for SQLite compatibility
-// Role: EXECUTIVE, MANAGER, FIELD_LEAD_REP, IT_ADMIN
-// LeadStage: COLD, WARM, HOT, QUOTE, WON, LOST
+enum Role {
+  CEO
+  AREA_DIRECTOR
+  CAO
+  DOO
+  BRANCH_MANAGER
+  STAFFING_REP
+  SALES_REP
+  IT_SUPER_ADMIN
+  // Legacy roles kept for migration safety if needed, but intended to be replaced
+  EXECUTIVE
+  MANAGER
+  FIELD_LEAD_REP
+  IT_ADMIN
+}
+
+enum LeadStage {
+  COLD
+  WARM
+  HOT
+  QUOTE
+  WON
+  LOST
+}
+
+model Branch {
+  id        String   @id @default(cuid())
+  name      String
+  address   String
+  city      String
+  state     String
+  code      String   @unique // BR-001
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     User[]
+  leads     Lead[]
+}
 
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
   password  String // Hashed password
-  role      String   @default("FIELD_LEAD_REP") // Was Enum Role
+  role      Role     @default(STAFFING_REP)
   territory String?
+  
+  branchId  String?
+  branch    Branch?  @relation(fields: [branchId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -26,20 +66,29 @@ model User {
   activities  Activity[]
   quotes      Quote[]
   commissions Commission[]
+  auditLogs   AuditLog[]
 }
 
 model Lead {
-  id       String  @id @default(cuid())
+  id       String    @id @default(cuid())
   name     String
   address  String?
-  phone    String? // Normalized to E.164
-  stage    String  @default("COLD") // Was Enum LeadStage
-  branch   String?
+  phone    String?   // Considerar cifrado en capa de aplicación o PGCrypto
+  email    String?
+  stage    LeadStage @default(COLD)
+  
+  // Retro-compatibility: keep 'branch' string if needed, but favor relation
+  branchString String? @map("branch") 
+  
+  branchId String?
+  branch   Branch?   @relation(fields: [branchId], references: [id])
+
   industry String?
-  source   String? @default("MANUAL") // REFERRAL, COLD_CALL, WEBSITE, LINKEDIN, MANUAL
+  source   String?   @default("MANUAL") // REFERRAL, COLD_CALL, WEBSITE, LINKEDIN, MANUAL
+  notes    String?   // Notas generales
 
   assignedToId String?
-  assignedTo   User?   @relation(fields: [assignedToId], references: [id])
+  assignedTo   User?     @relation(fields: [assignedToId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -53,16 +102,17 @@ model Lead {
 
   @@index([phone])
   @@index([address])
+  @@index([assignedToId])
 }
 
 model Activity {
   id          String   @id @default(cuid())
-  type        String // e.g., CALL, EMAIL, MEETING, NOTE, REMINDER
+  type        String   // e.g., CALL, EMAIL, MEETING, NOTE, REMINDER, HANDOFF
   description String
   date        DateTime @default(now())
 
   leadId String
-  lead   Lead   @relation(fields: [leadId], references: [id])
+  lead   Lead   @relation(fields: [leadId], references: [id], onDelete: Cascade)
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
@@ -72,8 +122,8 @@ model Activity {
 
 model Quote {
   id     String  @id @default(cuid())
-  amount Decimal
-  status String // DRAFT, SENT, ACCEPTED, REJECTED
+  amount Float
+  status String  // DRAFT, SENT, ACCEPTED, REJECTED
   pdfUrl String?
 
   leadId String
@@ -90,8 +140,8 @@ model Quote {
 
 model Commission {
   id          String  @id @default(cuid())
-  amount      Decimal
-  rateApplied Decimal // e.g. 0.10
+  amount      Float
+  rateApplied Float // e.g. 0.1000
   status      String  @default("PENDING") // PENDING, PAID, REJECTED
 
   userId String
@@ -105,4 +155,22 @@ model Commission {
 
   createdAt DateTime  @default(now())
   paidAt    DateTime?
+}
+
+// Nueva tabla para Auditoría y Seguridad
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String   // CREATE, UPDATE, DELETE, LOGIN, EXPORT
+  entity    String   // LEAD, USER, COMMISSION
+  entityId  String?
+  details   String?  // JSON stringified con los cambios
+  ipAddress String?
+  userAgent String?
+  
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
 }

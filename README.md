@@ -1,36 +1,206 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 DiligentOS Field Leads Management System
 
-## Getting Started
+Enterprise-grade Progressive Web App (PWA) for managing field sales leads, built with Next.js 16, Prisma, and Hono.
 
-First, run the development server:
+## ✨ Features
+
+- 🔐 **Secure Authentication** - NextAuth.js with Microsoft Entra ID integration
+- 👥 **Role-Based Access Control (RBAC)** - Multi-branch support with granular permissions
+- 📊 **Advanced Analytics** - Executive dashboards with visual insights
+- 🎯 **Lead Management** - Kanban boards, activity timeline, duplicate detection
+- 💰 **Quote Generator** - AI-powered quote creation and management
+- 📝 **Audit Logging** - Comprehensive tracking for compliance
+- 📱 **PWA Support** - Install as native app on any device
+- 🌙 **Dark Mode** - Beautiful UI with theme support
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 16 (App Router + Turbopack)
+- **Database:** PostgreSQL with Prisma ORM
+- **API:** Hono.js for high-performance endpoints
+- **Auth:** NextAuth.js v5
+- **UI:** React 19, TailwindCSS 4, Recharts
+- **State:** TanStack Query (React Query)
+
+## 📋 Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- PostgreSQL database (or SQLite for development)
+
+## 🚀 Quick Start
+
+### 1. Clone and Install
+
+```bash
+git clone <repository-url>
+cd diligent-os-field-leads
+npm install
+```
+
+### 2. Configure Environment
+
+Copy the example environment file and update with your values:
+
+```bash
+cp env.example .env
+```
+
+Required environment variables:
+```env
+DATABASE_URL="file:./dev.db"  # or PostgreSQL connection string
+AUTH_SECRET="your-secret-key-here"
+NEXTAUTH_URL="http://localhost:3000"
+```
+
+### 3. Setup Database
+
+```bash
+npm run db:setup
+```
+
+This will:
+- Run Prisma migrations
+- Seed the database with initial data
+
+### 4. Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 5. Default Login Credentials
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+After seeding, you can login with:
+- **Email:** `jesus.ramos@diligentos.com`
+- **Password:** `password123`
 
-## Learn More
+## 📦 Available Scripts
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev          # Start development server
+npm run build        # Create production build
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run db:setup     # Setup and seed database
+node verify-system.js # Verify system configuration
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏗️ Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+diligent-os-field-leads/
+├── src/
+│   ├── app/              # Next.js App Router pages
+│   │   ├── api/          # API routes (Hono)
+│   │   ├── dashboard/    # Dashboard pages
+│   │   ├── leads/        # Lead management
+│   │   ├── quotes/       # Quote management
+│   │   └── ...
+│   ├── components/       # React components
+│   ├── lib/              # Utilities and helpers
+│   └── middleware.ts     # Auth middleware
+├── prisma/
+│   ├── schema.prisma     # Database schema
+│   └── seed*.ts          # Database seeders
+├── public/               # Static assets
+└── ...
+```
 
-## Deploy on Vercel
+## 🔧 Configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Database
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**SQLite (Development):**
+```env
+DATABASE_URL="file:./dev.db"
+```
+
+**PostgreSQL (Production):**
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+```
+
+### Authentication
+
+Generate a secure AUTH_SECRET:
+```bash
+openssl rand -base64 32
+```
+
+### Deployment
+
+The project is configured for standalone deployment:
+
+```bash
+npm run build
+npm run start
+```
+
+For Docker deployment, see `Dockerfile` and `DEPLOYMENT.md`.
+
+## 📚 Documentation
+
+- [Implementation Plan](IMPLEMENTATION_PLAN.md)
+- [Deployment Guide](DEPLOYMENT.md)
+- [Fixes Applied](FIXES_APPLIED.md)
+- [Access Control Policy](access_control_policy.md)
+- [Audit Procedure](audit_procedure.md)
+
+## 🐛 Troubleshooting
+
+### Build Errors
+
+If you encounter build errors:
+
+1. Clear Next.js cache:
+   ```bash
+   rm -rf .next
+   npm run build
+   ```
+
+2. Verify TypeScript:
+   ```bash
+   npx tsc --noEmit
+   ```
+
+3. Check system configuration:
+   ```bash
+   node verify-system.js
+   ```
+
+### Database Issues
+
+Reset the database:
+```bash
+rm dev.db
+npm run db:setup
+```
+
+### Port Already in Use
+
+Change the port:
+```bash
+PORT=3001 npm run dev
+```
+
+## 🤝 Contributing
+
+1. Create a feature branch
+2. Make your changes
+3. Run tests and linting
+4. Submit a pull request
+
+## 📄 License
+
+Proprietary - DiligentOS
+
+## 🆘 Support
+
+For issues and questions, please contact the development team.
+
+---
+
+**Built with ❤️ by the DiligentOS Team**

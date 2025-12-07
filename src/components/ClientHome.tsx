@@ -36,7 +36,7 @@ const fetchQuotes = async (leadId: string) => {
 };
 
 export default function ClientHome({ searchParams }: { searchParams: any }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   // const searchParams = useSearchParams(); // Removed
   // const router = useRouter(); // Removed
 
@@ -45,14 +45,18 @@ export default function ClientHome({ searchParams }: { searchParams: any }) {
   const [showWinModal, setShowWinModal] = useState<string | null>(null);
   const [showAddLeadModal, setShowAddLeadModal] = useState(false);
   const [userRole, setUserRole] = useState('');
-  const [mockRole, setMockRole] = useState('FIELD_LEAD_REP'); // Default to Rep for demo
+  const [mockRole, setMockRole] = useState(''); // Initialize empty, set via effect
+
+  useEffect(() => {
+    if (session?.user?.role) {
+      setMockRole(session.user.role);
+    }
+  }, [session]);
   const [isEnriching, setIsEnriching] = useState(false);
   const [enrichedData, setEnrichedData] = useState<any>(null);
   const [newLeadBranch, setNewLeadBranch] = useState<string>('el-monte');
 
-  // useEffect for URL params moved to UrlHandler
-
-  // useEffect for URL params moved to UrlHandler
+  // ... (rest of the file until loading check)
 
   // Queries
   const { data: stats = { totalLeads: 0, activeQuotes: 0, pendingActions: 0 } } = useQuery({
@@ -66,8 +70,6 @@ export default function ClientHome({ searchParams }: { searchParams: any }) {
   });
 
   const leads = leadsData?.data || [];
-
-
 
   // Mutations
   const createLeadMutation = useMutation({
@@ -238,7 +240,7 @@ export default function ClientHome({ searchParams }: { searchParams: any }) {
     }
   };
 
-  if (leadsLoading) return <div className="p-8">Loading...</div>;
+  if (status === 'loading' || leadsLoading) return <div className="p-8">Loading...</div>;
 
   const isExecutive = session?.user?.role === 'EXECUTIVE' || session?.user?.role === 'MANAGER' || session?.user?.role === 'IT_ADMIN';
   const isRep = session?.user?.role === 'FIELD_LEAD_REP';

@@ -2,13 +2,68 @@ import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 import { prisma } from '@/lib/prisma'
 
+import { auth } from '@/auth'
+import { logger } from '@/lib/logger'
+import { register, httpRequestDurationMicroseconds, httpRequestsTotal } from '@/lib/metrics'
+
 export const runtime = 'nodejs'
 
-const app = new Hono().basePath('/api')
+type Variables = {
+  requestId: string
+}
+
+const app = new Hono<{ Variables: Variables }>().basePath('/api')
+
+// --- MIDDLEWARE: Logger & Metrics ---
+app.use('*', async (c, next) => {
+  const start = performance.now()
+  const requestId = crypto.randomUUID()
+  const method = c.req.method
+  const url = c.req.path
+
+  c.set('requestId', requestId)
+
+  let userId = 'anonymous'
+  try {
+    const session = await auth()
+    if (session?.user?.email) {
+      userId = session.user.email
+    }
+  } catch (e) {
+    // Ignore auth errors in logging
+  }
+
+  await next()
+
+  const duration = (performance.now() - start) / 1000
+  const status = c.res.status
+
+  httpRequestDurationMicroseconds.labels(method, url, status.toString()).observe(duration)
+  httpRequestsTotal.labels(method, url, status.toString()).inc()
+
+  logger.info({
+    requestId,
+    method,
+    url,
+    status,
+    duration,
+    userId,
+  }, 'API Request')
+})
 
 app.onError((err, c) => {
-  console.error('HONO ERROR:', err)
-  return c.json({ error: err.message, stack: err.stack }, 500)
+  logger.error({ err, url: c.req.path }, 'HONO ERROR')
+  return c.json({ error: err.message, stack: process.env.NODE_ENV === 'development' ? err.stack : undefined }, 500)
+})
+
+// --- METRICS ---
+app.get('/metrics', async (c) => {
+  try {
+    c.header('Content-Type', register.contentType)
+    return c.body(await register.metrics())
+  } catch (e) {
+    return c.json({ error: 'Metrics Error' }, 500)
+  }
 })
 
 app.get('/hello', (c) => {
@@ -17,38 +72,64 @@ app.get('/hello', (c) => {
   })
 })
 
-// --- STATS ---
+// --- HELPER: RBAC Scope ---
+function getScope(session: any) {
+  const role = session?.user?.role
+  const branchId = (session?.user as any)?.branchId
+  const userId = session?.user?.id
+
+  // Global Roles
+  if (['CEO', 'AREA_DIRECTOR', 'CAO', 'DOO', 'IT_SUPER_ADMIN', 'EXECUTIVE', 'IT_ADMIN'].includes(role)) {
+    return {}
+  }
+  // Branch Roles
+  if (role === 'BRANCH_MANAGER' || role === 'MANAGER') {
+    return branchId ? { branchId } : { branchId: 'NONE' }
+  }
+  // Rep Roles
+  if (['STAFFING_REP', 'SALES_REP', 'FIELD_LEAD_REP'].includes(role)) {
+    // Reps see OWN leads
+    return userId ? { assignedToId: userId } : { id: 'NONE' }
+  }
+  return { id: 'NONE' } // Default deny
+}
+
 // --- STATS ---
 app.get('/stats', async (c) => {
   try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+    const scope = getScope(session)
+
     const { searchParams } = new URL(c.req.url)
-    const role = searchParams.get('role')
     const branch = searchParams.get('branch')
 
-    const where: any = {}
+    const where: any = { ...scope }
+    // Allow filtering further if Global, or if filtering within own scope
     if (branch && branch !== 'ALL') {
-      where.branch = branch
-    }
-
-    // Role-based filtering (simplified)
-    if (role === 'FIELD_LEAD_REP') {
-      // Ideally filter by assignedToId if we had the user ID from session
+      where.branchId = branch
     }
 
     const totalLeads = await prisma.lead.count({ where })
+
+    // Quotes count
     const activeQuotes = await prisma.quote.count({
       where: {
-        ...where, // Assuming Quote has relation to Lead, we might need nested query or just rely on global stats for MVP if Quote doesn't have branch directly
-        status: 'SENT'
-      }
-    })
-    const pendingActions = await prisma.activity.count({
-      where: {
-        lead: where // Filter activities by lead's branch
+        AND: [
+          { status: 'SENT' },
+          { lead: where }
+        ]
       }
     })
 
-    // Calculate Total Commissions
+    // Activities
+    const pendingActions = await prisma.activity.count({
+      where: {
+        lead: where
+      }
+    })
+
+    // Commissions
     const commissions = await prisma.commission.findMany({
       where: {
         lead: where
@@ -56,7 +137,7 @@ app.get('/stats', async (c) => {
     })
     const totalCommissions = commissions.reduce((sum: number, c: any) => sum + Number(c.amount), 0)
 
-    // Calculate Pipeline Value
+    // Pipeline
     const quotes = await prisma.quote.findMany({
       where: {
         status: 'SENT',
@@ -65,29 +146,29 @@ app.get('/stats', async (c) => {
     })
     const pipelineValue = quotes.reduce((sum: number, q: any) => sum + Number(q.amount), 0)
 
-    // Calculate Conversion Rate
+    // Conversion
     const wonLeads = await prisma.lead.count({
       where: { ...where, stage: 'WON' }
     })
     const conversionRate = totalLeads > 0 ? ((wonLeads / totalLeads) * 100) : 0
 
     return c.json({
-      data: { // Wrap in data to match frontend expectation
+      data: {
         totalLeads,
         activeQuotes,
         pendingActions,
         totalCommissions,
         pipelineValue,
         conversionRate,
-        revenue: pipelineValue * 0.8, // Mock revenue as 80% of pipeline for now
+        revenue: pipelineValue * 0.8,
         pipeline: pipelineValue,
         activeLeadsCount: totalLeads,
-        avgMargin: 22, // Mock
-        retention: 95 // Mock
+        avgMargin: 22,
+        retention: 95
       }
     })
   } catch (e: any) {
-    console.error('STATS ERROR:', e)
+    logger.error({ err: e }, 'STATS ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -95,25 +176,26 @@ app.get('/stats', async (c) => {
 // --- LEADS ---
 app.get('/leads', async (c) => {
   try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+    const scope = getScope(session)
+
     const { searchParams } = new URL(c.req.url)
     const search = searchParams.get('search')?.toLowerCase() || ''
     const page = parseInt(searchParams.get('page') || '1')
     const limit = parseInt(searchParams.get('limit') || '20')
     const branch = searchParams.get('branch')
 
-    const where: any = {}
+    const where: any = { ...scope }
 
     if (branch && branch !== 'ALL') {
-      where.branch = branch
+      where.branchId = branch
     }
 
     if (search) {
       where.OR = [
         { name: { contains: search } },
         { phone: { contains: search } },
-        // { email: { contains: search } } // Email is on User, not Lead in current schema? Wait, Lead has no email in schema?
-        // Let's check schema again. Lead has name, address, phone. No email?
-        // Schema: name, address, phone.
       ]
     }
 
@@ -125,7 +207,8 @@ app.get('/leads', async (c) => {
       take: limit,
       include: {
         activities: true,
-        quotes: true
+        quotes: true,
+        branch: true
       }
     })
 
@@ -139,110 +222,87 @@ app.get('/leads', async (c) => {
       }
     })
   } catch (e: any) {
-    console.error('LEADS ERROR:', e)
+    logger.error({ err: e }, 'LEADS ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
 
 app.get('/leads/:id', async (c) => {
   try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+    const scope = getScope(session)
+
     const id = c.req.param('id')
-    const lead = await prisma.lead.findUnique({
-      where: { id },
+    const lead = await prisma.lead.findFirst({
+      where: {
+        id,
+        ...scope
+      },
       include: {
         activities: { orderBy: { createdAt: 'desc' } },
-        quotes: true
+        quotes: true,
+        branch: true
       }
     })
 
-    if (!lead) return c.json({ error: 'Lead not found' }, 404)
+    if (!lead) return c.json({ error: 'Lead not found or unauthorized' }, 404)
     return c.json(lead)
   } catch (e: any) {
-    return c.json({ error: e.message }, 500)
-  }
-})
-
-app.post('/leads', async (c) => {
-  try {
-    const body = await c.req.json()
-
-    // Create lead
-    const lead = await prisma.lead.create({
-      data: {
-        name: body.name,
-        address: body.address,
-        phone: body.phone,
-        stage: 'COLD',
-        branch: body.branch,
-        industry: body.industry,
-        // assignedToId: ... // Need a user ID. For now, maybe optional or hardcoded if auth not fully ready
-      }
-    })
-
-    return c.json(lead)
-  } catch (e: any) {
-    console.error('CREATE LEAD ERROR:', e)
-    return c.json({ error: e.message }, 500)
-  }
-})
-
-app.put('/leads/:id', async (c) => {
-  try {
-    const id = c.req.param('id')
-    const body = await c.req.json()
-
-    const updateData: any = { ...body }
-    delete updateData.id
-    delete updateData.createdAt
-    delete updateData.updatedAt
-
-    const lead = await prisma.lead.update({
-      where: { id },
-      data: updateData
-    })
-
-    // Hand-off Logic: If stage changed to WON, create a notification/task
-    if (updateData.stage === 'WON') {
-      await prisma.activity.create({
-        data: {
-          type: 'HANDOFF',
-          description: `✅ CLIENT WON: ${lead.name} (Branch: ${lead.branch || 'Unassigned'}). Ready for recruitment onboarding.`,
-          leadId: lead.id,
-          userId: 'system' // System generated
-        }
-      })
-    }
-
-    return c.json(lead)
-  } catch (e: any) {
-    console.error('UPDATE LEAD ERROR:', e)
     return c.json({ error: e.message }, 500)
   }
 })
 
 app.delete('/leads/:id', async (c) => {
   try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
     const id = c.req.param('id')
+    // Ideally we should check if they can delete this specific lead using scope too,
+    // but for now we rely on the fact they saw it in the UI + explicit RBAC checks if implemented.
+    // Let's add scope check quickly:
+    const scope = getScope(session)
+    const lead = await prisma.lead.findFirst({ where: { id, ...scope } })
+    if (!lead) return c.json({ error: 'Unauthorized to delete this lead' }, 403)
+
     await prisma.lead.delete({ where: { id } })
+
+    await prisma.auditLog.create({
+      data: {
+        action: 'DELETE',
+        entity: 'LEAD',
+        entityId: id,
+        userId: session.user.id,
+        details: JSON.stringify({ requester: session.user.email }),
+        ipAddress: c.req.header('x-forwarded-for') || 'unknown',
+        userAgent: c.req.header('user-agent'),
+      }
+    })
+
     return c.json({ success: true })
   } catch (e: any) {
     return c.json({ error: e.message }, 500)
   }
 })
 
-// --- ACTIVITIES ---
-app.post('/activities', async (c) => {
+app.patch('/leads/:id', async (c) => {
   try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+    const id = c.req.param('id')
+    const scope = getScope(session)
+
+    // Check access
+    const lead = await prisma.lead.findFirst({ where: { id, ...scope } })
+    if (!lead) return c.json({ error: 'Unauthorized to edit this lead' }, 403)
+
     const body = await c.req.json()
-    const activity = await prisma.activity.create({
-      data: {
-        type: body.type || 'NOTE',
-        description: body.content || body.description,
-        leadId: body.leadId,
-        userId: body.userId || 'unknown' // Needs valid user ID
-      }
+    const updatedLead = await prisma.lead.update({
+      where: { id },
+      data: body
     })
-    return c.json(activity)
+
+    return c.json({ success: true, data: updatedLead })
   } catch (e: any) {
     return c.json({ error: e.message }, 500)
   }
@@ -251,11 +311,179 @@ app.post('/activities', async (c) => {
 // --- QUOTES ---
 app.get('/quotes', async (c) => {
   try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+    const scope = getScope(session)
+
     const leadId = c.req.query('leadId')
-    const where = leadId ? { leadId } : {}
-    const quotes = await prisma.quote.findMany({ where })
+    const where: any = {
+      lead: scope // Quote -> Lead -> Scope
+    }
+    if (leadId) where.leadId = leadId
+
+    const quotes = await prisma.quote.findMany({
+      where,
+      include: { lead: true }
+    })
     return c.json(quotes)
   } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+// --- CCPA ---
+app.get('/privacy/export', async (c) => {
+  try {
+    const session = await auth()
+    const role = session?.user?.role
+    const userId = session?.user?.email || 'unknown'
+
+    if (!['CEO', 'AREA_DIRECTOR', 'CAO', 'DOO', 'IT_SUPER_ADMIN', 'EXECUTIVE', 'IT_ADMIN'].includes(role as string)) {
+      return c.json({ error: 'Unauthorized' }, 403)
+    }
+
+    const { searchParams } = new URL(c.req.url)
+    const leadId = searchParams.get('leadId')
+
+    if (!leadId) return c.json({ error: 'Missing leadId' }, 400)
+
+    const lead = await prisma.lead.findUnique({
+      where: { id: leadId },
+      include: {
+        activities: true,
+        quotes: true,
+        commissions: true
+      }
+    })
+
+    if (!lead) return c.json({ error: 'Lead not found' }, 404)
+
+    await prisma.auditLog.create({
+      data: {
+        action: 'CCPA_EXPORT',
+        entity: 'LEAD',
+        entityId: leadId,
+        userId: session?.user?.id ?? null,
+        details: JSON.stringify({ requester: userId }),
+        ipAddress: c.req.header('x-forwarded-for') || 'unknown',
+        userAgent: c.req.header('user-agent'),
+      }
+    })
+
+    return c.json({
+      legal_notice: 'CONFIDENTIAL: Contains PII.',
+      exportedAt: new Date(),
+      data: lead
+    })
+
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+app.post('/privacy/delete', async (c) => {
+  try {
+    const session = await auth()
+    const role = session?.user?.role
+    const userId = session?.user?.email || 'unknown'
+
+    if (!['CEO', 'AREA_DIRECTOR', 'CAO', 'DOO', 'IT_SUPER_ADMIN', 'EXECUTIVE', 'IT_ADMIN'].includes(role as string)) {
+      return c.json({ error: 'Unauthorized' }, 403)
+    }
+
+    const body = await c.req.json()
+    const { leadId, type } = body
+
+    if (!leadId) return c.json({ error: 'Missing leadId' }, 400)
+    const deleteType = type === 'HARD' ? 'HARD' : 'SOFT'
+
+    if (deleteType === 'HARD') {
+      await prisma.$transaction([
+        prisma.activity.deleteMany({ where: { leadId } }),
+        prisma.quote.deleteMany({ where: { leadId } }),
+        prisma.commission.deleteMany({ where: { leadId } }),
+        prisma.lead.delete({ where: { id: leadId } })
+      ])
+    } else {
+      await prisma.lead.update({
+        where: { id: leadId },
+        data: {
+          name: 'DELETED_USER',
+          phone: null,
+          email: null,
+          address: null,
+          notes: 'DATA CLEARED',
+          source: 'ANONYMIZED'
+        }
+      })
+    }
+
+    await prisma.auditLog.create({
+      data: {
+        action: deleteType === 'HARD' ? 'CCPA_DELETE_HARD' : 'CCPA_DELETE_SOFT',
+        entity: 'LEAD',
+        entityId: leadId,
+        userId: session?.user?.id ?? null,
+        details: JSON.stringify({ requester: userId }),
+        ipAddress: c.req.header('x-forwarded-for') || 'unknown',
+        userAgent: c.req.header('user-agent'),
+      }
+    })
+
+    return c.json({ success: true, type: deleteType })
+
+  } catch (e: any) {
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+
+// --- REPORTS ---
+app.get('/reports/manager', async (c) => {
+  try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+
+    // Authorization Check
+    const role = (session.user as any).role || ''
+    const allowedRoles = ['BRANCH_MANAGER', 'MANAGER', 'CEO', 'AREA_DIRECTOR', 'CAO', 'DOO', 'EXECUTIVE', 'IT_SUPER_ADMIN']
+
+    if (!allowedRoles.includes(role)) {
+      return c.json({ error: 'Unauthorized. Manager access required.' }, 403)
+    }
+
+    const scope = getScope(session)
+
+    // Pipeline Stats (Leads by Stage)
+    const pipelineCounts = await prisma.lead.groupBy({
+      by: ['stage'],
+      where: {
+        ...scope
+      },
+      _count: {
+        _all: true
+      }
+    })
+    const pipeline = pipelineCounts.map(p => ({ stage: p.stage, count: p._count._all }))
+
+    // Activity Stats
+    const activityCounts = await prisma.activity.groupBy({
+      by: ['type'],
+      where: {
+        lead: {
+          ...scope
+        }
+      },
+      _count: {
+        _all: true
+      }
+    })
+    const activity = activityCounts.map(a => ({ type: a.type, count: a._count._all }))
+
+    return c.json({ pipeline, activity })
+
+  } catch (e: any) {
+    logger.error({ err: e }, 'MANAGER REPORT ERROR')
     return c.json({ error: e.message }, 500)
   }
 })

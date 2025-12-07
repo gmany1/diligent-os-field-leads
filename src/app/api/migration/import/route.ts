@@ -5,16 +5,10 @@ import path from 'path';
 import { type NormalizedLead } from '@/lib/migration';
 
 export const runtime = 'nodejs';
+export const maxDuration = 60; // 60 seconds for long-running imports
 
 const app = new Hono().basePath('/api/migration');
 
-export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '10mb',
-        },
-    },
-};
 
 const DB_PATH = path.join(process.cwd(), 'data', 'db.json');
 

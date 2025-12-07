@@ -1,0 +1,1914 @@
+﻿
+> diligent-os-field-leads@0.1.0 build
+> next build
+
+node.exe : 
+[baseline-browser-mapping] 
+The data in this module is 
+over two months old.  To 
+ensure accurate Baseline 
+data, please update: `npm 
+i baseline-browser-mapping@
+latest -D`
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: ([ba  
+  seline-brows...ping@la   
+ test -D`:String) [], R    
+emoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+   Ôû▓ Next.js 16.0.5 (Turbopack)
+   - Environments: .env
+
+ ÔÜá The "middleware" file 
+convention is deprecated. 
+Please use "proxy" 
+instead. Learn more: https:
+//nextjs.org/docs/messages/
+middleware-to-proxy
+   Creating an optimized production build ...
+[baseline-browser-mapping] 
+The data in this module is 
+over two months old.  To 
+ensure accurate Baseline 
+data, please update: `npm 
+i baseline-browser-mapping@
+latest -D`
+Turbopack build 
+encountered 1 warnings:
+./src/app/api/migration/imp
+ort/route.ts:11:14
+Next.js can't recognize 
+the exported `config` 
+field in route. Page 
+config in `config` is 
+deprecated and ignored, 
+use individual exports 
+instead.
+[0m [90m  9 |[39m 
+[36mconst[39m app 
+[33m=[39m [36mnew[39m 
+[33mHono[39m()[33m.[39mb
+asePath([32m'/api/migratio
+n'[39m)[33m;[39m
+ [90m 10 |[39m
+[31m[1m>[22m[39m[90m 
+11 |[39m [36mexport[39m 
+[36mconst[39m config 
+[33m=[39m {
+ [90m    |[39m           
+   [31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m
+ [90m 12 |[39m     
+api[33m:[39m {
+ [90m 13 |[39m         
+bodyParser[33m:[39m {
+ [90m 14 |[39m           
+  sizeLimit[33m:[39m [32
+m'10mb'[39m[33m,[39m[0m
+
+The exported configuration 
+object in a source file 
+needs to have a very 
+specific format from which 
+some properties can be 
+statically parsed at 
+compiled-time.
+
+https://nextjs.org/docs/app
+/api-reference/file-convent
+ions/route-segment-config
+
+
+
+> Build error occurred
+Error: Turbopack build 
+failed with 38 errors:
+./node_modules/thread-strea
+m/test/ts.test.ts
+Missing module type
+The module type effect 
+must be applied before 
+adding Ecmascript 
+transforms
+
+
+./node_modules/thread-strea
+m/test/ts/to-file.ts
+Missing module type
+The module type effect 
+must be applied before 
+adding Ecmascript 
+transforms
+
+
+./node_modules/thread-strea
+m/README.md
+Unknown module type
+This module doesn't have 
+an associated type. Use a 
+known file extension, or 
+register a loader for it.
+
+Read more: https://nextjs.o
+rg/docs/app/api-reference/n
+ext-config-js/turbo#webpack
+-loaders
+
+
+./node_modules/thread-strea
+m/test/dir with 
+spaces/test-package.zip
+Unknown module type
+This module doesn't have 
+an associated type. Use a 
+known file extension, or 
+register a loader for it.
+
+Read more: https://nextjs.o
+rg/docs/app/api-reference/n
+ext-config-js/turbo#webpack
+-loaders
+
+
+./node_modules/thread-strea
+m/test/ts-commonjs-default-
+export.zip
+Unknown module type
+This module doesn't have 
+an associated type. Use a 
+known file extension, or 
+register a loader for it.
+
+Read more: https://nextjs.o
+rg/docs/app/api-reference/n
+ext-config-js/turbo#webpack
+-loaders
+
+
+./node_modules/thread-strea
+m/test/ts.test.ts
+Unknown module type
+This module doesn't have 
+an associated type. Use a 
+known file extension, or 
+register a loader for it.
+
+Read more: https://nextjs.o
+rg/docs/app/api-reference/n
+ext-config-js/turbo#webpack
+-loaders
+
+
+./node_modules/thread-strea
+m/test/ts/to-file.ts
+Unknown module type
+This module doesn't have 
+an associated type. Use a 
+known file extension, or 
+register a loader for it.
+
+Read more: https://nextjs.o
+rg/docs/app/api-reference/n
+ext-config-js/turbo#webpack
+-loaders
+
+
+./node_modules/thread-strea
+m/test/ts/transpile.sh
+Unknown module type
+This module doesn't have 
+an associated type. Use a 
+known file extension, or 
+register a loader for it.
+
+Read more: https://nextjs.o
+rg/docs/app/api-reference/n
+ext-config-js/turbo#webpack
+-loaders
+
+
+./node_modules/thread-strea
+m/test/yarnrc.yml
+Unknown module type
+This module doesn't have 
+an associated type. Use a 
+known file extension, or 
+register a loader for it.
+
+Read more: https://nextjs.o
+rg/docs/app/api-reference/n
+ext-config-js/turbo#webpack
+-loaders
+
+
+./node_modules/thread-strea
+m/LICENSE:1:5
+Parsing ecmascript source 
+code failed
+[0m[31m[1m>[22m[39m[9
+0m 1 |[39m [33mMIT[39m 
+[33mLicense[39m
+ [90m   |[39m     [31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m
+ [90m 2 |[39m
+ [90m 3 |[39m 
+[33mCopyright[39m (c) 
+[35m2021[39m 
+[33mMatteo[39m 
+[33mCollina[39m
+ [90m 4 |[39m[0m
+
+Expected ';', '}' or <eof>
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/LICENSE
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+
+./node_modules/thread-strea
+m/test/syntax-error.mjs:2:7
+Parsing ecmascript source 
+code failed
+[0m [90m 1 |[39m 
+[90m// this is a syntax 
+error[39m
+[31m[1m>[22m[39m[90m 
+2 |[39m [36mimport[39m
+ [90m   |[39m       
+[31m[1m^[22m[39m
+ [90m 3 |[39m[0m
+
+Expected 'from', got 
+'<eof>'
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/syntax-error.mjs
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+
+./node_modules/thread-strea
+m/test
+Module not found: Can't 
+resolve './ROOT/node_module
+s/thread-stream/test/close-
+on-gc.js'
+server relative imports 
+are not implemented yet. 
+Please try an import 
+relative to the file you 
+are importing from.
+
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test
+Module not found: Can't 
+resolve './ROOT/node_module
+s/thread-stream/test/create
+-and-exit.js'
+server relative imports 
+are not implemented yet. 
+Please try an import 
+relative to the file you 
+are importing from.
+
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/thread-management.te
+st.js:112:17
+Module not found: Can't 
+resolve '/ROOT/node_modules
+/thread-stream/test/close-o
+n-gc.js'
+[0m [90m 110 |[39m 
+test([32m'close the work 
+if out of scope on 
+gc'[39m[33m,[39m { 
+skip[33m:[39m [33m![39m
+global[33m.[39m[33mWeakR
+ef[39m }[33m,[39m 
+[36masync[39m 
+[36mfunction[39m (t) {
+ [90m 111 |[39m   
+[36mconst[39m dest 
+[33m=[39m file()
+[31m[1m>[22m[39m[90m 
+112 |[39m   
+[36mconst[39m child 
+[33m=[39m fork(join(__dir
+name[33m,[39m [32m'close
+-on-gc.js'[39m)[33m,[39m
+ [dest][33m,[39m {
+ [90m     |[39m          
+       [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m
+[31m[1m>[22m[39m[90m 
+113 |[39m     
+execArgv[33m:[39m 
+[[32m'--expose-gc'[39m]
+ [90m     |[39m [31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m
+[31m[1m>[22m[39m[90m 
+114 |[39m   })
+ [90m     |[39m [31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m
+ [90m 115 |[39m
+ [90m 116 |[39m   
+[36mconst[39m [code] 
+[33m=[39m 
+[36mawait[39m 
+once(child[33m,[39m 
+[32m'exit'[39m)
+ [90m 117 |[39m   t[33m.
+[39mequal(code[33m,[39m 
+[35m0[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/thread-managemen
+t.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/thread-management.te
+st.js:13:17
+Module not found: Can't 
+resolve '/ROOT/node_modules
+/thread-stream/test/create-
+and-exit.js'
+[0m [90m 11 |[39m 
+test([32m'exits with 
+0'[39m[33m,[39m 
+[36masync[39m 
+[36mfunction[39m (t) {
+ [90m 12 |[39m   
+[36mconst[39m dest 
+[33m=[39m file()
+[31m[1m>[22m[39m[90m 
+13 |[39m   
+[36mconst[39m child 
+[33m=[39m fork(join(__dir
+name[33m,[39m [32m'creat
+e-and-exit.js'[39m)[33m,
+[39m [dest])
+ [90m    |[39m           
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+ [90m 14 |[39m
+ [90m 15 |[39m   
+[36mconst[39m [code] 
+[33m=[39m 
+[36mawait[39m 
+once(child[33m,[39m 
+[32m'exit'[39m)
+ [90m 16 |[39m   t[33m.
+[39mequal(code[33m,[39m 
+[35m0[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/thread-managemen
+t.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/esm.test.mjs:4:1
+Module not found: Can't 
+resolve 'desm'
+[0m [90m 2 |[39m 
+[36mimport[39m { 
+readFile } [36mfrom[39m 
+[32m'fs'[39m
+ [90m 3 |[39m 
+[36mimport[39m 
+[33mThreadStream[39m 
+[36mfrom[39m 
+[32m'../index.js'[39m
+[31m[1m>[22m[39m[90m 
+4 |[39m [36mimport[39m 
+{ join } [36mfrom[39m 
+[32m'desm'[39m
+ [90m   |[39m [31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 5 |[39m 
+[36mimport[39m { 
+pathToFileURL } 
+[36mfrom[39m 
+[32m'url'[39m
+ [90m 6 |[39m 
+[36mimport[39m { file } 
+[36mfrom[39m 
+[32m'./helper.js'[39m
+ [90m 7 |[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/esm.test.mjs
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/multibyte-chars.test
+.mjs:4:1
+Module not found: Can't 
+resolve 'desm'
+[0m [90m 2 |[39m 
+[36mimport[39m { 
+readFile } [36mfrom[39m 
+[32m'fs'[39m
+ [90m 3 |[39m 
+[36mimport[39m 
+[33mThreadStream[39m 
+[36mfrom[39m 
+[32m'../index.js'[39m
+[31m[1m>[22m[39m[90m 
+4 |[39m [36mimport[39m 
+{ join } [36mfrom[39m 
+[32m'desm'[39m
+ [90m   |[39m [31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 5 |[39m 
+[36mimport[39m { file } 
+[36mfrom[39m 
+[32m'./helper.js'[39m
+ [90m 6 |[39m
+ [90m 7 |[39m 
+test([32m'break up utf8 
+multibyte 
+(sync)'[39m[33m,[39m 
+(t) [33m=>[39m {[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/multibyte-chars.
+test.mjs
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/bench.js:3:15
+Module not found: Can't 
+resolve 'fastbench'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m 
+bench [33m=[39m require(
+[32m'fastbench'[39m)
+ [90m   |[39m            
+   [31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m 
+[33mSonicBoom[39m 
+[33m=[39m require([32m's
+onic-boom'[39m)
+ [90m 5 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m 
+require([32m'.'[39m)
+ [90m 6 |[39m 
+[36mconst[39m 
+[33mConsole[39m 
+[33m=[39m require([32m'c
+onsole'[39m)[33m.[39m[3
+3mConsole[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/bench.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/commonjs-fallback.te
+st.js:14:22
+Module not found: Can't 
+resolve 
+'pino-elasticsearch'
+[0m [90m 12 |[39m   t[3
+3m.[39mplan([35m6[39m)
+ [90m 13 |[39m
+[31m[1m>[22m[39m[90m 
+14 |[39m   
+[36mconst[39m modulePath 
+[33m=[39m require[33m.[
+39mresolve([32m'pino-elast
+icsearch'[39m)
+ [90m    |[39m           
+           [31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m
+ [90m 15 |[39m   t[33m.
+[39mmatch(modulePath[33m,
+[39m [35m/.*\.zip.*/[39m)
+ [90m 16 |[39m
+ [90m 17 |[39m   
+[36mconst[39m stream 
+[33m=[39m [36mnew[39m 
+[33mThreadStream[39m({[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/commonjs-fallbac
+k.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/base.test.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { readFile 
+} [33m=[39m 
+require([32m'fs'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { file } 
+[33m=[39m require([32m'.
+/helper'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/base.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/bench.test.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m 
+require([32m'..'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { file } 
+[33m=[39m require([32m'.
+/helper'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/bench.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/bundlers.test.js:3:1
+8
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { file } 
+[33m=[39m require([32m'.
+/helper'[39m)
+ [90m 6 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m 
+require([32m'..'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/bundlers.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/commonjs-fallback.te
+st.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { 
+[33mMessageChannel[39m } 
+[33m=[39m require([32m'w
+orker_threads'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { once } 
+[33m=[39m require([32m'e
+vents'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/commonjs-fallbac
+k.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/context.test.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m 
+require([32m'..'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { version 
+} [33m=[39m require([32m
+'../package.json'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/context.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/end.test.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { readFile 
+} [33m=[39m 
+require([32m'fs'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { file } 
+[33m=[39m require([32m'.
+/helper'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/end.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/esm.test.mjs:1:1
+Module not found: Can't 
+resolve 'tap'
+[0m[31m[1m>[22m[39m[9
+0m 1 |[39m 
+[36mimport[39m { test } 
+[36mfrom[39m 
+[32m'tap'[39m
+ [90m   |[39m [31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m
+ [90m 2 |[39m 
+[36mimport[39m { 
+readFile } [36mfrom[39m 
+[32m'fs'[39m
+ [90m 3 |[39m 
+[36mimport[39m 
+[33mThreadStream[39m 
+[36mfrom[39m 
+[32m'../index.js'[39m
+ [90m 4 |[39m 
+[36mimport[39m { join } 
+[36mfrom[39m 
+[32m'desm'[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/esm.test.mjs
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/event.test.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m 
+require([32m'..'[39m)
+ [90m 6 |[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/event.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/helper.js:6:11
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 4 |[39m 
+[36mconst[39m { tmpdir } 
+[33m=[39m 
+require([32m'os'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { 
+unlinkSync } [33m=[39m 
+require([32m'fs'[39m)
+[31m[1m>[22m[39m[90m 
+6 |[39m [36mconst[39m t 
+[33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m           
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m
+ [90m 7 |[39m
+ [90m 8 |[39m 
+[36mconst[39m files 
+[33m=[39m []
+ [90m 9 |[39m 
+[36mlet[39m count 
+[33m=[39m [35m0[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/helper.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/indexes.test.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m indexes 
+[33m=[39m require([32m'.
+./lib/indexes'[39m)
+ [90m 5 |[39m
+ [90m 6 |[39m 
+[36mfor[39m 
+([36mconst[39m index 
+[36mof[39m [33mObject[3
+9m[33m.[39mkeys(indexes))
+ {[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/indexes.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/multibyte-chars.test
+.mjs:1:1
+Module not found: Can't 
+resolve 'tap'
+[0m[31m[1m>[22m[39m[9
+0m 1 |[39m 
+[36mimport[39m { test } 
+[36mfrom[39m 
+[32m'tap'[39m
+ [90m   |[39m [31m[1m^
+[22m[39m[31m[1m^[22m[3
+9m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[
+22m[39m[31m[1m^[22m[39
+m[31m[1m^[22m[39m[31m
+[1m^[22m[39m[31m[1m^[2
+2m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m
+ [90m 2 |[39m 
+[36mimport[39m { 
+readFile } [36mfrom[39m 
+[32m'fs'[39m
+ [90m 3 |[39m 
+[36mimport[39m 
+[33mThreadStream[39m 
+[36mfrom[39m 
+[32m'../index.js'[39m
+ [90m 4 |[39m 
+[36mimport[39m { join } 
+[36mfrom[39m 
+[32m'desm'[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/multibyte-chars.
+test.mjs
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/never-drain.test.js:
+1:18
+Module not found: Can't 
+resolve 'tap'
+[0m[31m[1m>[22m[39m[9
+0m 1 |[39m 
+[36mconst[39m { test } 
+[33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 2 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m require([32m'.
+./index'[39m)
+ [90m 3 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 4 |[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/never-drain.test
+.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/pkg/index.js:7:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m  5 |[39m [90m 
+*/[39m
+ [90m  6 |[39m
+[31m[1m>[22m[39m[90m  
+7 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m    |[39m           
+       [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[
+1m^[22m[39m[31m[1m^[22
+m[39m[31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m
+ [90m  8 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m  9 |[39m 
+[36mconst[39m { file } 
+[33m=[39m require([32m'.
+./helper'[39m)
+ [90m 10 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m require([32m'.
+./..'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/pkg/index.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/pkg/pkg.test.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m config 
+[33m=[39m require([32m'.
+/pkg.config.json'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { 
+promisify } [33m=[39m 
+require([32m'util'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { unlink } 
+[33m=[39m require([32m'f
+s/promises'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/pkg/pkg.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/post-message.test.js
+:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { once } 
+[33m=[39m 
+require([32m'events'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { 
+[33mMessageChannel[39m } 
+[33m=[39m require([32m'w
+orker_threads'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/post-message.tes
+t.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/string-limit-2.test.
+js:3:11
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m t 
+[33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m           
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m
+ [90m 4 |[39m
+ [90m 5 |[39m 
+[36mif[39m (process[33m.
+[39menv[33m.[39m[33mCI
+[39m) {
+ [90m 6 |[39m   t[33m.[
+39mskip([32m'skip on 
+CI'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/string-limit-2.t
+est.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/string-limit.test.js
+:3:11
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m t 
+[33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m           
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m[31m[1m^
+[22m[39m
+ [90m 4 |[39m
+ [90m 5 |[39m 
+[36mif[39m (process[33m.
+[39menv[33m.[39m[33mCI
+[39m) {
+ [90m 6 |[39m   t[33m.[
+39mskip([32m'skip on 
+CI'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/string-limit.tes
+t.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/thread-management.te
+st.js:3:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { fork } 
+[33m=[39m require([32m'c
+hild_process'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 6 |[39m 
+[36mconst[39m { readFile 
+} [33m=[39m require([32m
+'fs'[39m)[33m.[39mpromis
+es[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/thread-managemen
+t.test.js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+./node_modules/thread-strea
+m/test/transpiled.test.js:3
+:18
+Module not found: Can't 
+resolve 'tap'
+[0m [90m 1 |[39m 
+[32m'use strict'[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 
+3 |[39m [36mconst[39m { 
+test } [33m=[39m 
+require([32m'tap'[39m)
+ [90m   |[39m            
+      [31m[1m^[22m[39m
+[31m[1m^[22m[39m[31m[1
+m^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[
+31m[1m^[22m[39m[31m[1m
+^[22m[39m[31m[1m^[22m
+[39m[31m[1m^[22m[39m[3
+1m[1m^[22m[39m[31m[1m^
+[22m[39m[31m[1m^[22m[
+39m[31m[1m^[22m[39m[31
+m[1m^[22m[39m
+ [90m 4 |[39m 
+[36mconst[39m { join } 
+[33m=[39m 
+require([32m'path'[39m)
+ [90m 5 |[39m 
+[36mconst[39m { file } 
+[33m=[39m require([32m'.
+/helper'[39m)
+ [90m 6 |[39m 
+[36mconst[39m 
+[33mThreadStream[39m 
+[33m=[39m 
+require([32m'..'[39m)[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/thread-s
+tream/test/transpiled.test.
+js
+    ./node_modules/thread-s
+tream/index.js
+    ./node_modules/pino/lib
+/transport.js
+    
+./node_modules/pino/pino.js
+    ./src/lib/logger.ts
+    ./src/app/api/[[...rout
+e]]/route.ts
+
+https://nextjs.org/docs/mes
+sages/module-not-found
+
+
+    at <unknown> (https://n
+extjs.org/docs/messages/mod
+ule-not-found)
+    ... collapsed 26 
+duplicate lines matching 
+above 1 lines 26 times...

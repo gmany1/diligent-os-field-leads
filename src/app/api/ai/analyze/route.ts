@@ -14,7 +14,6 @@ export async function GET(req: Request) {
         let quotes: any[] = [];
 
         try {
-            // Check if prisma is available (it might be a mock object if DB connection failed)
             if (prisma.lead) {
                 leads = await prisma.lead.findMany({
                     select: { stage: true, createdAt: true, updatedAt: true }
