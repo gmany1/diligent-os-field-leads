@@ -57,6 +57,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 COPY entrypoint.sh ./
+COPY switch-db.js ./
+COPY prisma ./prisma
 RUN chmod +x entrypoint.sh
 
 USER nextjs
