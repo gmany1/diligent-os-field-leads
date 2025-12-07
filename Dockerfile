@@ -60,8 +60,9 @@ COPY entrypoint.sh ./
 COPY switch-db.js ./
 COPY prisma ./prisma
 
-# Install global tools and dependencies
-RUN npm install -g prisma tsx && npm install bcryptjs
+# Install dependencies for migration, seeding, and runtime scripts
+# We need bcryptjs for seeding, and prisma/tsx for executing commands
+RUN npm install bcryptjs prisma @prisma/client tsx
 
 # Fix line endings for Windows compatibility
 RUN apk add --no-cache dos2unix && dos2unix entrypoint.sh && chmod +x entrypoint.sh
