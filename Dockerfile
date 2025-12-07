@@ -29,6 +29,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # If using Prisma
+RUN node switch-db.js postgres
 RUN npx prisma generate
 
 RUN npm run build
