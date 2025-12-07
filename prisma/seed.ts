@@ -21,6 +21,36 @@ async function main() {
         },
     });
 
+    // CEO
+    const ceo = await prisma.user.upsert({
+        where: { email: 'ceo@diligentos.com' },
+        update: {
+            password: hashedPassword,
+            role: Role.CEO
+        },
+        create: {
+            email: 'ceo@diligentos.com',
+            name: 'CEO User',
+            password: hashedPassword,
+            role: Role.CEO,
+        },
+    });
+
+    // Branch Manager
+    const manager = await prisma.user.upsert({
+        where: { email: 'manager@diligentos.com' },
+        update: {
+            password: hashedPassword,
+            role: Role.BRANCH_MANAGER
+        },
+        create: {
+            email: 'manager@diligentos.com',
+            name: 'Branch Manager',
+            password: hashedPassword,
+            role: Role.BRANCH_MANAGER,
+        },
+    });
+
     // FIELD REP
     const rep = await prisma.user.upsert({
         where: { email: 'rep@diligentos.com' },
