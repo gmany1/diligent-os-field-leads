@@ -120,14 +120,17 @@ diligent-os-field-leads/
 
 ### Database
 
-**SQLite (Development):**
+**PostgreSQL (Production - RECOMMENDED for VPS):**
+```env
+DATABASE_URL="postgresql://user:password@localhost:5432/diligent_leads?schema=public"
+```
+
+**SQLite (Local Development - Optional):**
 ```env
 DATABASE_URL="file:./dev.db"
 ```
 
-**PostgreSQL (Production):**
-```env
-DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+📖 **See [DATABASE_SETUP.md](DATABASE_SETUP.md) for complete configuration guide**
 ```
 
 ### Authentication

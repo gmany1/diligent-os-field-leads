@@ -54,7 +54,14 @@
 - Variables de entorno
 - Troubleshooting de deployment
 
-### 7. **[FIXES_APPLIED.md](FIXES_APPLIED.md)** - Registro de Correcciones
+### 7. **[DATABASE_SETUP.md](DATABASE_SETUP.md)** - Configuración de Base de Datos ⭐ NUEVO
+- PostgreSQL para producción (VPS)
+- SQLite para desarrollo local
+- Guía de migración entre bases de datos
+- Troubleshooting de conexiones
+- Comandos útiles de Prisma
+
+### 8. **[FIXES_APPLIED.md](FIXES_APPLIED.md)** - Registro de Correcciones
 - Historial de bugs resueltos
 - Soluciones aplicadas
 - Lecciones aprendidas
@@ -63,7 +70,7 @@
 
 ## 🔒 Seguridad y Compliance
 
-### 8. **[access_control_policy.md](access_control_policy.md)** - Política de Control de Acceso
+### 9. **[access_control_policy.md](access_control_policy.md)** - Política de Control de Acceso
 - Definición de roles (RBAC)
 - Permisos por rol
 - Políticas de seguridad
