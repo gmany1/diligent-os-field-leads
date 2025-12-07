@@ -6,9 +6,8 @@ import { auth } from '@/auth';
 export async function GET(request: Request) {
     try {
         const session = await auth();
-        // Basic RBAC: Only authenticated users can list users. 
-        // Ideally, restrict to ADMIN/MANAGER.
-        if (!session?.user) {
+        // Only executives and IT admins can view all users
+        if (!session?.user || !['CEO', 'CAO', 'DOO', 'IT_SUPER_ADMIN', 'BRANCH_MANAGER'].includes(session.user.role || '')) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
@@ -19,11 +18,31 @@ export async function GET(request: Request) {
                 email: true,
                 role: true,
                 territory: true,
+                branchId: true,
+                createdAt: true,
+                updatedAt: true,
+                branch: {
+                    select: {
+                        id: true,
+                        name: true,
+                        code: true,
+                        city: true,
+                        state: true
+                    }
+                },
+                _count: {
+                    select: {
+                        leads: true,
+                        activities: true,
+                        quotes: true,
+                        commissions: true
+                    }
+                }
             },
             orderBy: { createdAt: 'desc' }
         });
 
-        return NextResponse.json({ data: users });
+        return NextResponse.json(users);
     } catch (error) {
         console.error('Error fetching users:', error);
         return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 });
@@ -33,8 +52,8 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     try {
         const session = await auth();
-        // RBAC: Only IT_ADMIN or MANAGER can create users
-        if (!session?.user || (session.user.role !== 'IT_ADMIN' && session.user.role !== 'MANAGER')) {
+        // RBAC: Only IT_SUPER_ADMIN or executives can create users
+        if (!session?.user || !['IT_SUPER_ADMIN', 'CEO', 'CAO', 'DOO'].includes(session.user.role || '')) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
         }
 
