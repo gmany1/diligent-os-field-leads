@@ -39,33 +39,36 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-# Uncomment the following line in case you want to disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Install openssl (critical for Prisma on Alpine) and dos2unix
+RUN apk add --no-cache openssl dos2unix
+
 COPY --from=builder /app/public ./public
 
-# Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
+# Copy standalone build
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-COPY entrypoint.sh ./
-COPY switch-db.js ./
+# Copy scripts
+COPY --chown=nextjs:nodejs entrypoint.sh ./
+COPY --chown=nextjs:nodejs switch-db.js ./
+
+# CRITICAL: Copy prisma schema and generated client from BUILDER (already switched to postgres)
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.prisma ./node_modules/.prisma
 
 # Install dependencies for migration, seeding, and runtime scripts
-# We need bcryptjs for seeding, and prisma/tsx for executing commands
 RUN npm install bcryptjs prisma @prisma/client tsx
 
-# Fix line endings for Windows compatibility
-RUN apk add --no-cache dos2unix && dos2unix entrypoint.sh && chmod +x entrypoint.sh
+# Fix line endings
+RUN dos2unix entrypoint.sh && chmod +x entrypoint.sh
 
 USER nextjs
 
@@ -75,7 +78,5 @@ ENV PORT=3000
 # set hostname to localhost
 ENV HOSTNAME="0.0.0.0"
 
-
-
-# ENTRYPOINT ["./entrypoint.sh"] -- Removing to prevent override issues
-CMD ["./entrypoint.sh", "node", "server.js"]
+ENTRYPOINT ["./entrypoint.sh"]
+CMD ["node", "server.js"]
