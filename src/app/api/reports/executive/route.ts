@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
     const session = await auth();
-    if (!session || !['EXECUTIVE', 'IT_ADMIN', 'MANAGER', 'CEO', 'AREA_DIRECTOR', 'CAO', 'DOO'].includes(session.user?.role || '')) {
+    if (!session || !['EXECUTIVE', 'IT_ADMIN', 'MANAGER', 'CEO', 'AREA_DIRECTOR', 'CAO', 'DOO', 'BRANCH_MANAGER', 'IT_SUPER_ADMIN'].includes(session.user?.role || '')) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -28,12 +28,14 @@ export async function GET() {
         const totalLeads = await prisma.lead.count();
         const wonLeads = await prisma.lead.count({ where: { stage: 'WON' } });
         const lostLeads = await prisma.lead.count({ where: { stage: 'LOST' } });
+        const quotedLeads = await prisma.lead.count({ where: { stage: 'QUOTE' } });
 
         const conversionStats = {
-            total: totalLeads,
-            won: wonLeads,
-            lost: lostLeads,
-            conversionRate: totalLeads > 0 ? ((wonLeads / totalLeads) * 100).toFixed(2) : '0.00'
+            total_leads: totalLeads,
+            won_leads: wonLeads,
+            lost_leads: lostLeads,
+            quoted_leads: quotedLeads,
+            conversion_rate: totalLeads > 0 ? ((wonLeads / totalLeads) * 100).toFixed(2) : '0.00'
         };
 
         return NextResponse.json({
