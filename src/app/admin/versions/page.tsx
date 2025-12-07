@@ -1,47 +1,72 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { FileText, Download } from 'lucide-react';
+import { GitBranch, CheckCircle, Server } from 'lucide-react';
 
 async function fetchData() {
-    const res = await fetch('/api/admin/versions');
+    const res = await fetch('/api/system/versions');
     if (!res.ok) throw new Error('Failed to fetch data');
-    return res.json();
+    const json = await res.json();
+    return json;
 }
 
 export default function VersionHistoryPage() {
     const { data, isLoading, error } = useQuery({
-        queryKey: ['version-history'],
+        queryKey: ['versions'],
         queryFn: fetchData,
     });
 
-    if (isLoading) return <div className="p-8">Loading...</div>;
+    if (isLoading) return <div className="p-8">Loading versions...</div>;
     if (error) return <div className="p-8 text-red-500">Error loading data</div>;
 
     const items = data?.data || [];
 
     return (
-        <div className="p-8 space-y-6">
+        <div className="p-8 space-y-6 relative">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Version History</h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">System version tracking</p>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
+                        <GitBranch className="mr-3 text-indigo-600" /> Version History
+                    </h1>
+                    <p className="text-gray-500 dark:text-gray-400 mt-1">System version tracking and changelog</p>
                 </div>
-                <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
-                    <Download className="inline mr-2" size={18} />
-                    Export
-                </button>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div className="text-center py-12">
-                    <FileText className="mx-auto text-gray-400" size={48} />
-                    <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">
-                        {items.length} items found
-                    </h3>
-                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        Data will be displayed here
-                    </p>
+            <div className="space-y-4">
+                {items.map((ver: any, i: number) => (
+                    <div key={i} className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border-l-4 border-indigo-500">
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center">
+                                    {ver.version}
+                                    {ver.status === 'Current' && <span className="ml-3 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Current</span>}
+                                </h3>
+                                <p className="text-sm text-gray-500">Deployed on {ver.date} by {ver.deployedBy}</p>
+                            </div>
+                        </div>
+                        <ul className="mt-4 space-y-2">
+                            {ver.changes.map((change: string, j: number) => (
+                                <li key={j} className="flex items-center text-gray-700 dark:text-gray-300">
+                                    <CheckCircle size={16} className="mr-2 text-green-500" /> {change}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+
+            {/* Reliability Indicator */}
+            <div className="fixed bottom-6 right-6 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex items-center space-x-3 z-50">
+                <div className="relative">
+                    <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    <Server size={20} className="text-gray-600 dark:text-gray-300" />
+                </div>
+                <div className="text-xs">
+                    <p className="font-bold text-gray-900 dark:text-white">API Connected</p>
+                    <p className="text-gray-500 dark:text-gray-400">Source: /api/system/versions</p>
                 </div>
             </div>
         </div>

@@ -1,39 +1,40 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { BarChart3, TrendingUp, Users, DollarSign } from 'lucide-react';
+import { CheckCircle, AlertTriangle, ArrowRight } from 'lucide-react';
 
-export default function PipelineAnalysisPage() {
+export default function Page() {
     return (
-        <div className="p-8 space-y-6">
-            <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Pipeline Analysis</h1>
-                <p className="text-gray-500 dark:text-gray-400 mt-1">AI pipeline predictions</p>
+        <div className="p-6 space-y-6">
+            <div className="mb-6">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Pipeline Intelligence</h1>
+                <p className="text-gray-600 dark:text-gray-400 mt-1">AI analysis of pipeline health</p>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">Total Items</p>
-                            <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">0</p>
-                        </div>
-                        <BarChart3 className="text-indigo-600" size={24} />
-                    </div>
-                </div>
+            
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+               <h3 className="text-lg font-bold mb-4 text-green-600 flex items-center"><CheckCircle className="mr-2" /> Healthy Deals</h3>
+               <p className="text-sm text-gray-500 mb-4">These deals are progressing faster than average.</p>
+               <ul className="space-y-3">
+                  {['Metro Systems', 'Alpha Logistics', 'Beta Corp'].map((d, i) => (
+                      <li key={i} className="flex items-center text-gray-700 dark:text-gray-300">
+                         <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span> {d}
+                      </li>
+                  ))}
+               </ul>
             </div>
-
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8">
-                <div className="text-center py-12">
-                    <BarChart3 className="mx-auto text-gray-400" size={48} />
-                    <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">
-                        Report data will appear here
-                    </h3>
-                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        Configure your report parameters to view insights
-                    </p>
-                </div>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+               <h3 className="text-lg font-bold mb-4 text-red-600 flex items-center"><AlertTriangle className="mr-2" /> At Risk Deals</h3>
+               <p className="text-sm text-gray-500 mb-4">Lack of recent communication detected.</p>
+               <ul className="space-y-3">
+                  {['Gamma Inc', 'Delta Force', 'Epsilon Group'].map((d, i) => (
+                      <li key={i} className="flex items-center text-gray-700 dark:text-gray-300">
+                         <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span> {d}
+                      </li>
+                  ))}
+               </ul>
             </div>
+         </div>
+      
         </div>
     );
 }

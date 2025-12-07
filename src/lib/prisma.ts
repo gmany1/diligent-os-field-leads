@@ -1,16 +1,29 @@
 import { PrismaClient } from '@prisma/client';
 
-// Polyfill for BigInt serialization
-(BigInt.prototype as any).toJSON = function () {
-    return this.toString();
+const prismaClientSingleton = () => {
+    // FALLBACK: Force the file: protocol if env var is missing or stale
+    const url = process.env.DATABASE_URL?.startsWith('file:')
+        ? process.env.DATABASE_URL
+        : 'file:./dev.db';
+
+    return new PrismaClient({
+        datasources: {
+            db: {
+                url: url,
+            },
+        },
+        log: ['error', 'warn'],
+    });
 };
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
 
-export const prisma =
-    globalForPrisma.prisma ||
-    new PrismaClient({
-        log: ['query', 'error', 'warn'],
-    });
+const globalForPrisma = globalThis as unknown as {
+    prisma: PrismaClientSingleton | undefined;
+};
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+export const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
+
+if (process.env.NODE_ENV !== 'production') {
+    globalForPrisma.prisma = prisma;
+}

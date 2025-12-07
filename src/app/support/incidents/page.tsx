@@ -1,47 +1,76 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { FileText, Download } from 'lucide-react';
+import { LifeBuoy, AlertCircle, CheckCircle, Clock, Server } from 'lucide-react';
 
 async function fetchData() {
-    const res = await fetch('/api/support/incidents');
+    const res = await fetch('/api/support/incidents'); // Correct endpoint
     if (!res.ok) throw new Error('Failed to fetch data');
-    return res.json();
+    const json = await res.json();
+    return json;
 }
 
-export default function IncidentsPage() {
-    const { data, isLoading, error } = useQuery({
-        queryKey: ['incidents'],
-        queryFn: fetchData,
-    });
+export default function SupportIncidentsPage() {
+    const { data, isLoading, error } = useQuery({ queryKey: ['support-incidents'], queryFn: fetchData });
 
-    if (isLoading) return <div className="p-8">Loading...</div>;
-    if (error) return <div className="p-8 text-red-500">Error loading data</div>;
+    if (isLoading) return <div className="p-8">Loading tickets...</div>;
+    // Removed the error placeholder, will show actual error message if fails
+    if (error) return <div className="p-8 text-red-500">Error loading support tickets: {(error as Error).message}</div>;
 
     const items = data?.data || [];
 
     return (
         <div className="p-8 space-y-6">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Incidents</h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-1">Report incidents</p>
-                </div>
-                <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
-                    <Download className="inline mr-2" size={18} />
-                    Export
-                </button>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center">
+                <LifeBuoy className="mr-3 text-indigo-600" /> My Support Tickets
+            </h1>
+
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <table className="w-full text-left">
+                    <thead className="bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
+                        <tr>
+                            <th className="px-6 py-4 font-semibold text-gray-500">Ticket ID</th>
+                            <th className="px-6 py-4 font-semibold text-gray-500">Subject</th>
+                            <th className="px-6 py-4 font-semibold text-gray-500">Priority</th>
+                            <th className="px-6 py-4 font-semibold text-gray-500">Status</th>
+                            <th className="px-6 py-4 font-semibold text-gray-500">Created</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                        {items.length === 0 ? (
+                            <tr><td colSpan={5} className="p-8 text-center text-gray-500">No active support tickets.</td></tr>
+                        ) : items.map((tkt: any) => (
+                            <tr key={tkt.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                <td className="px-6 py-4 font-mono text-sm text-gray-500">{tkt.id}</td>
+                                <td className="px-6 py-4 font-bold text-gray-900 dark:text-white">{tkt.subject}</td>
+                                <td className="px-6 py-4">
+                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${tkt.priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'}`}>
+                                        {tkt.priority}
+                                    </span>
+                                </td>
+                                <td className="px-6 py-4">
+                                    <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold ${tkt.status === 'Open' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+                                        {tkt.status}
+                                    </span>
+                                </td>
+                                <td className="px-6 py-4 text-sm text-gray-500">{new Date(tkt.created).toLocaleDateString()}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div className="text-center py-12">
-                    <FileText className="mx-auto text-gray-400" size={48} />
-                    <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">
-                        {items.length} items found
-                    </h3>
-                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        Data will be displayed here
-                    </p>
+            <div className="fixed bottom-6 right-6 bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 flex items-center space-x-3 z-50">
+                <div className="relative">
+                    <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    </span>
+                    <Server size={20} className="text-gray-600 dark:text-gray-300" />
+                </div>
+                <div className="text-xs">
+                    <p className="font-bold text-gray-900 dark:text-white">API Connected</p>
+                    <p className="text-gray-500 dark:text-gray-400">Source: /api/support/incidents</p>
                 </div>
             </div>
         </div>
