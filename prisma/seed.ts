@@ -14,115 +14,94 @@ const BRANCHES = [
 const ORGANIZATION = [
     // Executive Leadership (Global)
     {
-        name: 'Sal Ingles',
-        email: 'sal.ingles@diligentos.com',
+        name: 'Robert Johnson', // Updated from Sal Ingles
+        email: 'ceo@diligentos.com',
         role: Role.CEO,
         branchId: null, // Global
         password: 'password123'
     },
     {
-        name: 'Ana Perez',
-        email: 'ana.perez@diligentos.com',
-        role: Role.CAO,
-        branchId: null,
-        password: 'password123'
-    },
-    {
-        name: 'Ana I Gonzalez',
-        email: 'ana.gonzalez@diligentos.com',
+        name: 'James Smith',
+        email: 'doo@diligentos.com',
         role: Role.DOO,
         branchId: null,
         password: 'password123'
     },
-    // Technology
     {
-        name: 'Jorge Ayala',
-        email: 'jorge.ayala@diligentos.com',
+        name: 'David Chen',
+        email: 'it.admin@diligentos.com',
         role: Role.IT_SUPER_ADMIN,
         branchId: null,
         password: 'password123'
     },
     // Branch Managers
     {
-        name: 'Jesus Ramos',
-        email: 'jesus.ramos@diligentos.com',
+        name: 'Sarah Williams',
+        email: 'manager.la@diligentos.com',
         role: Role.BRANCH_MANAGER,
         branchId: 'BR-001',
         password: 'password123'
     },
     {
-        name: 'Doris Ibarra',
-        email: 'doris.ibarra@diligentos.com',
+        name: 'Michael Brown',
+        email: 'manager.norwalk@diligentos.com',
+        role: Role.BRANCH_MANAGER,
+        branchId: 'BR-002',
+        password: 'password123'
+    },
+    {
+        name: 'Jennifer Davis',
+        email: 'manager.elmonte@diligentos.com',
         role: Role.BRANCH_MANAGER,
         branchId: 'BR-003',
         password: 'password123'
     },
     {
-        name: 'Erika Galvez',
-        email: 'erika.galvez@diligentos.com',
+        name: 'Christopher Martinez',
+        email: 'manager.moreno@diligentos.com',
         role: Role.BRANCH_MANAGER,
         branchId: 'BR-004',
         password: 'password123'
     },
+    // Wait, San Antonio manager is not in your explicit list, but we have a branch. 
+    // I will add a placeholder for completeness matching the branch list if desired, 
+    // but I will stick STRICTLY to your provided list first.
+
+    // Staffing Reps
     {
-        name: 'Dullian Lopez',
-        email: 'dullian.lopez@diligentos.com',
-        role: Role.BRANCH_MANAGER,
-        branchId: 'BR-005',
-        password: 'password123'
-    },
-    // Staff (Por asignar branch - vamos a asignar aleatorio o uno default para testing)
-    {
-        name: 'Saira Baires',
-        email: 'saira.baires@diligentos.com',
-        role: Role.STAFFING_REP,
-        branchId: 'BR-001', // Assigned for test
-        password: 'password123'
-    },
-    {
-        name: 'Maria Centeno',
-        email: 'maria.centeno@diligentos.com',
+        name: 'Amanda Rodriguez',
+        email: 'staffing.la@diligentos.com',
         role: Role.STAFFING_REP,
         branchId: 'BR-001',
         password: 'password123'
     },
     {
-        name: 'Alondra Gonzalez',
-        email: 'alondra.gonzalez@diligentos.com',
+        name: 'Daniel Lopez',
+        email: 'staffing.norwalk@diligentos.com',
         role: Role.STAFFING_REP,
-        branchId: 'BR-003',
+        branchId: 'BR-002',
         password: 'password123'
     },
     {
-        name: 'Manuel Cardenas',
-        email: 'manuel.cardenas@diligentos.com',
+        name: 'Jessica Wilson',
+        email: 'staffing.sa@diligentos.com',
+        role: Role.STAFFING_REP,
+        branchId: 'BR-005', // San Antonio
+        password: 'password123'
+    },
+    {
+        name: 'Kevin Anderson',
+        email: 'sales.rep@diligentos.com',
         role: Role.SALES_REP,
-        branchId: 'BR-005',
-        password: 'password123'
-    }
-];
-
-// Combine basic test users with real org structure
-const TEST_USERS = [
-    {
-        name: 'CEO User',
-        email: 'ceo@diligentos.com',
-        role: Role.CEO,
-        branchId: null,
+        branchId: 'BR-003', // El Monte per request
         password: 'password123'
     },
+    // Legacy / Basic Users
     {
         name: 'Admin User',
         email: 'admin@diligentos.com',
         role: Role.IT_ADMIN,
         branchId: null,
-        password: 'password123'
-    },
-    {
-        name: 'Branch Manager',
-        email: 'manager@diligentos.com',
-        role: Role.BRANCH_MANAGER,
-        branchId: null, // Will be set manually if needed, or left global for testing
         password: 'password123'
     },
     {
@@ -139,12 +118,11 @@ async function main() {
 
     // 1. Seed Branches
     for (const b of BRANCHES) {
-        // Use BR code as ID to match user expectations
         await prisma.branch.upsert({
             where: { code: b.code },
             update: {},
             create: {
-                id: b.id, // Force our ID
+                id: b.id,
                 name: b.name,
                 address: b.address,
                 city: b.city,
@@ -155,20 +133,17 @@ async function main() {
         console.log(`Created Branch: ${b.name}`);
     }
 
-    // 2. Seed Real Organization Users
+    // 2. Seed Organization Users
     const hashedPassword = await hash('password123', 10);
 
-    // Merge Real Org and Test Users
-    const ALL_USERS = [...ORGANIZATION, ...TEST_USERS];
-
-    for (const u of ALL_USERS) {
+    for (const u of ORGANIZATION) {
         await prisma.user.upsert({
             where: { email: u.email },
             update: {
+                // Force update details to ensure they match the list provided
                 role: u.role,
                 branchId: u.branchId,
                 name: u.name,
-                // Only update password if strictly necessary (optional)
                 password: hashedPassword
             },
             create: {
@@ -185,42 +160,37 @@ async function main() {
     // 3. Seed Sample Leads
     console.log('🌱 Seeding Sample Leads...');
 
-    // Lead in LA (BR-001)
+    // Sample: LA Lead (Visible to Sarah Williams & Amanda Rodriguez)
     await prisma.lead.create({
         data: {
-            name: 'LA Gym Franchise',
+            name: 'LA Downtown Gym',
             stage: 'COLD',
             branchId: 'BR-001',
-            branchString: 'Los Angeles', // Legacy
+            branchString: 'Los Angeles',
             source: 'MANUAL',
-            notes: 'Expansion project in Downtown'
+            notes: 'Requires large staffing crew for night shift.'
         }
     });
 
-    // Lead in San Antonio (BR-005)
-    // Find Manuel first to assign
-    const manuel = await prisma.user.findUnique({ where: { email: 'manuel.cardenas@diligentos.com' } });
-    if (manuel) {
-        await prisma.lead.create({
-            data: {
-                name: 'Texas BBQ Chain',
-                stage: 'HOT',
-                branchId: 'BR-005',
-                branchString: 'San Antonio',
-                assignedToId: manuel.id,
-                notes: 'High value contract'
-            }
-        });
-    }
-
-    // Lead in El Monte (BR-003)
+    // Sample: San Antonio Lead (Visible to Jessica Wilson)
     await prisma.lead.create({
         data: {
-            name: 'El Monte Logistics',
+            name: 'Alamo Logistics Center',
+            stage: 'HOT',
+            branchId: 'BR-005',
+            branchString: 'San Antonio',
+            notes: 'Urgent need for 50+ workers.'
+        }
+    });
+
+    // Sample: El Monte Lead (Visible to Jennifer Davis & Kevin Anderson)
+    await prisma.lead.create({
+        data: {
+            name: 'San Gabriel Valley Tech Park',
             stage: 'WARM',
             branchId: 'BR-003',
             branchString: 'El Monte',
-            notes: 'Warehouse staffing needs'
+            notes: 'Pending final contract review.'
         }
     });
 
