@@ -8,7 +8,7 @@ ls -F /app/prisma
 
 # Force switch to Postgres if DATABASE_URL starts with postgres
 echo "Checking DATABASE_URL protocol..."
-if echo "$DATABASE_URL" | grep -q "^postgres"; then
+if echo "$DATABASE_URL" | grep -q "postgres"; then
     echo "✅ Protocol detected: POSTGRES"
     echo "Using PostgreSQL..."
     if [ -f "switch-db.js" ]; then
