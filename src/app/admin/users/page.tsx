@@ -1,13 +1,31 @@
 'use client';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Users, Shield, Mail, Building2, Edit, Trash2, UserPlus } from 'lucide-react';
+import { Users, Shield, Mail, Building2, Edit, Trash2, UserPlus, X } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+
+interface EditUserData {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+    branchId: string | null;
+    territory: string | null;
+}
 
 export default function UsersPage() {
     const queryClient = useQueryClient();
     const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+    const [editingUser, setEditingUser] = useState<EditUserData | null>(null);
+    const [editForm, setEditForm] = useState({
+        name: '',
+        email: '',
+        role: '',
+        branchId: '',
+        territory: '',
+        password: ''
+    });
 
     const { data: users, isLoading, error } = useQuery({
         queryKey: ['users'],
@@ -17,6 +35,69 @@ export default function UsersPage() {
             return res.json();
         }
     });
+
+    const { data: branches } = useQuery({
+        queryKey: ['branches'],
+        queryFn: async () => {
+            const res = await fetch('/api/branches');
+            if (!res.ok) return [];
+            return res.json();
+        }
+    });
+
+    const handleEditClick = (user: any) => {
+        setEditingUser(user);
+        setEditForm({
+            name: user.name || '',
+            email: user.email || '',
+            role: user.role || '',
+            branchId: user.branchId || '',
+            territory: user.territory || '',
+            password: ''
+        });
+    };
+
+    const handleEditSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingUser) return;
+
+        try {
+            const updateData: any = {
+                name: editForm.name,
+                email: editForm.email,
+                role: editForm.role,
+                branchId: editForm.branchId || null,
+                territory: editForm.territory || null,
+            };
+
+            // Only include password if it's been changed
+            if (editForm.password && editForm.password.trim() !== '') {
+                updateData.password = editForm.password;
+            }
+
+            const res = await fetch(`/api/users/${editingUser.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updateData),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                toast.error(data.error || 'Failed to update user');
+                return;
+            }
+
+            toast.success('User updated successfully');
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+            setEditingUser(null);
+        } catch (error) {
+            toast.error('Failed to update user');
+            console.error(error);
+        }
+    };
 
     const handleDelete = async (userId: string, userName: string) => {
         if (deleteConfirm !== userId) {
@@ -85,8 +166,132 @@ export default function UsersPage() {
         return colors[role] || 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
     };
 
+    const roles = ['CEO', 'CAO', 'DOO', 'IT_SUPER_ADMIN', 'BRANCH_MANAGER', 'STAFFING_REP', 'SALES_REP'];
+
     return (
         <div className="p-6 space-y-6">
+            {/* Edit Modal */}
+            {editingUser && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                        <div className="p-6">
+                            <div className="flex justify-between items-center mb-6">
+                                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Edit User</h2>
+                                <button
+                                    onClick={() => setEditingUser(null)}
+                                    className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                                >
+                                    <X size={24} />
+                                </button>
+                            </div>
+
+                            <form onSubmit={handleEditSubmit} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={editForm.name}
+                                        onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        value={editForm.email}
+                                        onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        Role
+                                    </label>
+                                    <select
+                                        value={editForm.role}
+                                        onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        required
+                                    >
+                                        <option value="">Select role...</option>
+                                        {roles.map(role => (
+                                            <option key={role} value={role}>{role.replace(/_/g, ' ')}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        Branch
+                                    </label>
+                                    <select
+                                        value={editForm.branchId}
+                                        onChange={(e) => setEditForm({ ...editForm, branchId: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                    >
+                                        <option value="">No branch</option>
+                                        {branches?.map((branch: any) => (
+                                            <option key={branch.id} value={branch.id}>{branch.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        Territory
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={editForm.territory}
+                                        onChange={(e) => setEditForm({ ...editForm, territory: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        placeholder="Optional"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        New Password (leave blank to keep current)
+                                    </label>
+                                    <input
+                                        type="password"
+                                        value={editForm.password}
+                                        onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        placeholder="Enter new password or leave blank"
+                                    />
+                                </div>
+
+                                <div className="flex justify-end space-x-3 pt-4">
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditingUser(null)}
+                                        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div>
@@ -215,7 +420,7 @@ export default function UsersPage() {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <button
-                                            onClick={() => toast.info('Edit user form coming soon')}
+                                            onClick={() => handleEditClick(user)}
                                             className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3"
                                             title="Edit user"
                                         >
