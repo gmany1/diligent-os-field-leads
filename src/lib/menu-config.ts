@@ -24,7 +24,14 @@ import {
     LogOut,
     Plus,
     ChevronDown,
-    ChevronRight
+    ChevronRight,
+    Building2,
+    Upload,
+    Download,
+    Bell,
+    Search,
+    WifiOff,
+    History
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -35,38 +42,35 @@ export interface MenuItem {
     roles?: string[]; // Allowed roles. If undefined, allowed for all authenticated.
 }
 
+// Roles actualizados según schema.prisma
+const EXEC_ROLES = ['CEO', 'CAO', 'DOO'];
+const MANAGER_ROLES = ['BRANCH_MANAGER', ...EXEC_ROLES];
+const REP_ROLES = ['STAFFING_REP', 'SALES_REP'];
+const IT_ROLES = ['IT_SUPER_ADMIN'];
+const ALL_ROLES = [...EXEC_ROLES, ...MANAGER_ROLES, ...REP_ROLES, ...IT_ROLES];
+
 export const MENU_CONFIG: MenuItem[] = [
     {
         name: 'Dashboard',
         icon: LayoutDashboard,
         items: [
-            { name: 'Executive', href: '/dashboard/executive', roles: ['EXECUTIVE', 'IT_ADMIN'] },
-            { name: 'Manager', href: '/dashboard/manager', roles: ['MANAGER', 'EXECUTIVE', 'IT_ADMIN'] },
-            { name: 'Rep', href: '/dashboard/rep', roles: ['FIELD_LEAD_REP', 'EXECUTIVE', 'IT_ADMIN'] },
-            { name: 'Finance', href: '/dashboard/finance', roles: ['EXECUTIVE', 'IT_ADMIN'] }, // Removed 'FINANCE' as it wasn't in original defined roles, assuming IT_ADMIN/EXEC for now or need to add role
-            { name: 'IT / Observability', href: '/dashboard/it', roles: ['IT_ADMIN', 'EXECUTIVE'] },
-            { name: 'Compliance', href: '/dashboard/compliance', roles: ['IT_ADMIN', 'EXECUTIVE'] },
+            { name: 'Executive', href: '/dashboard/executive', roles: [...EXEC_ROLES, ...IT_ROLES] },
+            { name: 'Manager', href: '/dashboard/manager', roles: MANAGER_ROLES },
+            { name: 'Rep', href: '/dashboard/rep', roles: REP_ROLES },
+            { name: 'Finance', href: '/dashboard/finance', roles: [...EXEC_ROLES, 'CAO', ...IT_ROLES] },
+            { name: 'IT / Observability', href: '/dashboard/it', roles: IT_ROLES },
+            { name: 'Compliance', href: '/dashboard/compliance', roles: [...EXEC_ROLES, ...IT_ROLES] },
         ]
     },
     {
         name: 'Leads',
         icon: Users,
         items: [
-            { name: 'All Leads', href: '/leads/all', roles: ['EXECUTIVE', 'MANAGER', 'IT_ADMIN'] },
-            { name: 'My Leads', href: '/leads/mine', roles: ['FIELD_LEAD_REP', 'MANAGER'] },
+            { name: 'All Leads', href: '/leads/all', roles: MANAGER_ROLES },
+            { name: 'My Leads', href: '/leads/mine', roles: [...REP_ROLES, ...MANAGER_ROLES] },
             { name: 'Create Lead', href: '/leads/create' },
-            { name: 'Duplicates', href: '/leads/duplicates', roles: ['MANAGER', 'IT_ADMIN', 'EXECUTIVE'] },
-            { name: 'Archived', href: '/leads/archived', roles: ['MANAGER', 'IT_ADMIN', 'EXECUTIVE'] },
-        ]
-    },
-    {
-        name: 'Activities',
-        icon: Calendar,
-        items: [
-            { name: 'All Activities', href: '/activities/all', roles: ['EXECUTIVE', 'MANAGER'] },
-            { name: 'My Activities', href: '/activities/mine' },
-            { name: 'Calendar', href: '/activities/calendar' },
-            { name: 'Overdue', href: '/activities/overdue' },
+            { name: 'Duplicates', href: '/leads/duplicates', roles: MANAGER_ROLES },
+            { name: 'Archived', href: '/leads/archived', roles: MANAGER_ROLES },
         ]
     },
     {
@@ -74,18 +78,29 @@ export const MENU_CONFIG: MenuItem[] = [
         icon: BarChart3,
         items: [
             { name: 'Kanban', href: '/pipeline/kanban' },
-            { name: 'Aging', href: '/pipeline/aging', roles: ['MANAGER', 'EXECUTIVE'] },
-            { name: 'Stalled', href: '/pipeline/stalled', roles: ['MANAGER', 'EXECUTIVE'] },
-            { name: 'Stage Summary', href: '/pipeline/summary', roles: ['MANAGER', 'EXECUTIVE'] },
+            { name: 'Aging', href: '/pipeline/aging', roles: MANAGER_ROLES },
+            { name: 'Stalled', href: '/pipeline/stalled', roles: MANAGER_ROLES },
+            { name: 'Stage Summary', href: '/pipeline/summary', roles: MANAGER_ROLES },
+        ]
+    },
+    {
+        name: 'Activities',
+        icon: Calendar,
+        items: [
+            { name: 'My Activities', href: '/activities/mine' },
+            { name: 'All Activities', href: '/activities/all', roles: MANAGER_ROLES },
+            { name: 'Calendar', href: '/activities/calendar' },
+            { name: 'Overdue', href: '/activities/overdue' },
         ]
     },
     {
         name: 'Quotes',
         icon: FileText,
         items: [
-            { name: 'All Quotes', href: '/quotes/all', roles: ['EXECUTIVE', 'MANAGER'] },
+            { name: 'All Quotes', href: '/quotes/all', roles: MANAGER_ROLES },
+            { name: 'My Quotes', href: '/quotes/mine' },
             { name: 'Create Quote', href: '/quotes/create' },
-            { name: 'Pending Approval', href: '/quotes/pending', roles: ['MANAGER', 'EXECUTIVE'] },
+            { name: 'Pending Approval', href: '/quotes/pending', roles: MANAGER_ROLES },
             { name: 'Approved', href: '/quotes/approved' },
             { name: 'Rejected', href: '/quotes/rejected' },
         ]
@@ -93,32 +108,53 @@ export const MENU_CONFIG: MenuItem[] = [
     {
         name: 'Commissions',
         icon: DollarSign,
-        roles: ['EXECUTIVE', 'MANAGER', 'FIELD_LEAD_REP', 'IT_ADMIN'],
         items: [
             { name: 'My Commissions', href: '/commissions/mine' },
-            { name: 'Team Commissions', href: '/commissions/team', roles: ['MANAGER', 'EXECUTIVE', 'IT_ADMIN'] },
+            { name: 'Team Commissions', href: '/commissions/team', roles: MANAGER_ROLES },
             { name: 'Projection', href: '/commissions/projection' },
             { name: 'Paid', href: '/commissions/paid' },
-            { name: 'Discrepancies', href: '/commissions/discrepancies', roles: ['EXECUTIVE', 'IT_ADMIN'] },
+            { name: 'Discrepancies', href: '/commissions/discrepancies', roles: [...EXEC_ROLES, ...IT_ROLES] },
+        ]
+    },
+    {
+        name: 'Branches',
+        icon: Building2,
+        roles: MANAGER_ROLES,
+        items: [
+            { name: 'All Branches', href: '/branches/all', roles: EXEC_ROLES },
+            { name: 'My Branch', href: '/branches/mine', roles: ['BRANCH_MANAGER'] },
+            { name: 'Performance', href: '/branches/performance', roles: EXEC_ROLES },
+            { name: 'Manage', href: '/branches/manage', roles: [...EXEC_ROLES, ...IT_ROLES] },
         ]
     },
     {
         name: 'Reports',
         icon: PieChart,
-        roles: ['EXECUTIVE', 'MANAGER', 'IT_ADMIN'],
+        roles: MANAGER_ROLES,
         items: [
             { name: 'Sales', href: '/reports/sales' },
             { name: 'Conversion', href: '/reports/conversion' },
             { name: 'Activity', href: '/reports/activity' },
             { name: 'Commissions', href: '/reports/commissions' },
-            { name: 'Compliance', href: '/reports/compliance', roles: ['EXECUTIVE', 'IT_ADMIN'] },
-            { name: 'CCPA Exports', href: '/reports/ccpa', roles: ['EXECUTIVE', 'IT_ADMIN'] },
+            { name: 'Compliance', href: '/reports/compliance', roles: [...EXEC_ROLES, ...IT_ROLES] },
+            { name: 'CCPA Exports', href: '/reports/ccpa', roles: [...EXEC_ROLES, ...IT_ROLES] },
+        ]
+    },
+    {
+        name: 'AI & Analysis',
+        icon: Brain,
+        roles: [...EXEC_ROLES, ...IT_ROLES, ...MANAGER_ROLES],
+        items: [
+            { name: 'Insights', href: '/ai/insights' },
+            { name: 'Critical Alerts', href: '/ai/alerts' },
+            { name: 'Pipeline Analysis', href: '/ai/pipeline' },
+            { name: 'Predictive', href: '/ai/predictive' },
         ]
     },
     {
         name: 'Users & Roles',
         icon: UserCog,
-        roles: ['IT_ADMIN', 'EXECUTIVE'],
+        roles: [...IT_ROLES, ...EXEC_ROLES],
         items: [
             { name: 'Users', href: '/admin/users' },
             { name: 'Roles', href: '/admin/roles' },
@@ -129,7 +165,7 @@ export const MENU_CONFIG: MenuItem[] = [
     {
         name: 'Compliance & Audit',
         icon: Shield,
-        roles: ['IT_ADMIN', 'EXECUTIVE'],
+        roles: [...IT_ROLES, ...EXEC_ROLES],
         items: [
             { name: 'Audit Logs', href: '/compliance/audit-logs' },
             { name: 'PII Access', href: '/compliance/pii-access' },
@@ -138,20 +174,9 @@ export const MENU_CONFIG: MenuItem[] = [
         ]
     },
     {
-        name: 'IA & Analysis',
-        icon: Brain,
-        roles: ['EXECUTIVE', 'IT_ADMIN'],
-        items: [
-            { name: 'Insights', href: '/ai/insights' },
-            { name: 'Critical Alerts', href: '/ai/alerts' },
-            { name: 'Pipeline Analysis', href: '/ai/pipeline' },
-            { name: 'Predictive', href: '/ai/predictive' },
-        ]
-    },
-    {
         name: 'System',
         icon: Server,
-        roles: ['IT_ADMIN'],
+        roles: IT_ROLES,
         items: [
             { name: 'Status', href: '/system/status' },
             { name: 'Observability', href: '/system/observability' },
@@ -162,13 +187,26 @@ export const MENU_CONFIG: MenuItem[] = [
         ]
     },
     {
+        name: 'Administration',
+        icon: Settings,
+        roles: [...IT_ROLES, ...EXEC_ROLES],
+        items: [
+            { name: 'Env Variables', href: '/admin/env', roles: IT_ROLES },
+            { name: 'API Keys', href: '/admin/api-keys', roles: IT_ROLES },
+            { name: 'Integrations', href: '/admin/integrations' },
+            { name: 'Versions', href: '/admin/versions' },
+            { name: 'Maintenance', href: '/admin/maintenance', roles: IT_ROLES },
+        ]
+    },
+    {
         name: 'Settings',
         icon: Settings,
         items: [
             { name: 'Profile', href: '/settings/profile' },
             { name: 'Preferences', href: '/settings/preferences' },
-            { name: 'Feature Flags', href: '/settings/feature-flags', roles: ['IT_ADMIN'] },
-            { name: 'General', href: '/settings/general', roles: ['IT_ADMIN', 'EXECUTIVE'] },
+            { name: 'Notifications', href: '/settings/notifications' },
+            { name: 'Feature Flags', href: '/settings/feature-flags', roles: IT_ROLES },
+            { name: 'General', href: '/settings/general', roles: [...IT_ROLES, ...EXEC_ROLES] },
         ]
     },
     {
@@ -181,16 +219,4 @@ export const MENU_CONFIG: MenuItem[] = [
             { name: 'Documentation', href: '/support/docs' },
         ]
     },
-    {
-        name: 'Administration',
-        icon: Settings, // Or another icon
-        roles: ['IT_ADMIN', 'EXECUTIVE'],
-        items: [
-            { name: 'Env Variables', href: '/admin/env', roles: ['IT_ADMIN'] },
-            { name: 'API Keys', href: '/admin/api-keys', roles: ['IT_ADMIN'] },
-            { name: 'Integrations', href: '/admin/integrations' },
-            { name: 'Versions', href: '/admin/versions' },
-            { name: 'Maintenance', href: '/admin/maintenance', roles: ['IT_ADMIN'] },
-        ]
-    }
 ];
