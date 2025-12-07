@@ -1,26 +1,27 @@
 #!/bin/sh
-echo "--- DEBUG INFO ---"
-echo "OpenSSL Version:"
-openssl version
-echo "Architecture:"
-uname -m
-echo "Checking for libssl.so.1.1:"
-find / -name "libssl.so.1.1" 2>/dev/null
-echo "Checking for libssl.so.3:"
-find / -name "libssl.so.3" 2>/dev/null
-echo "Checking Prisma Client directory:"
-ls -l /app/node_modules/.prisma/client/
-echo "--- END DEBUG INFO ---"
+echo "--- 🚀 DILIGENT OS STARTUP ---"
 
-echo "Generating Prisma Client..."
+# Force switch to Postgres if DATABASE_URL starts with postgres
+if echo "$DATABASE_URL" | grep -q "^postgres"; then
+    echo "Using PostgreSQL..."
+    node switch-db.js postgres
+else
+    echo "Using SQLite (or unknown provider)..."
+    node switch-db.js sqlite
+fi
+
+echo "🔄 Generating Prisma Client..."
 ./node_modules/.bin/prisma generate
 
-echo "Running migrations..."
-# Usar la versión local de Prisma, no npx
+echo "📦 Pushing database references..."
+# Using db push instead of migrate deploy to be safer with non-empty DBs in dev/test scenarios
 ./node_modules/.bin/prisma db push --accept-data-loss --skip-generate
 
-echo "Running seed..."
-node seed.js || echo "Seed skipped"
+echo "🌱 Seeding database..."
+# Run the seed script directly
+node prisma/seed.ts || echo "⚠️ Seed failed (possibly already seeded)"
 
-echo "Database setup completed."
+echo "✅ Database ready!"
+echo "--- STARTING APP ---"
+
 exec "$@"
