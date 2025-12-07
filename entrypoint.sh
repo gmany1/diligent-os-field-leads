@@ -6,24 +6,19 @@ ls -F /app
 echo "📂 Listing /app/prisma:"
 ls -F /app/prisma
 
-# Force switch to Postgres if DATABASE_URL starts with postgres
-echo "Checking DATABASE_URL protocol..."
-if echo "$DATABASE_URL" | grep -q "postgres"; then
-    echo "✅ Protocol detected: POSTGRES"
-    echo "Using PostgreSQL..."
-    if [ -f "switch-db.js" ]; then
-        node switch-db.js postgres
-    else
-        echo "❌ ERROR: switch-db.js not found!"
-    fi
+# FORCE POSTGRES - No more checks
+echo "🚀 Forcing PostgreSQL configuration..."
+if [ -f "switch-db.js" ]; then
+    echo "⚙️  Running switch-db.js postgres..."
+    node switch-db.js postgres
 else
-    echo "Using SQLite (or unknown provider)..."
-    if [ -f "switch-db.js" ]; then
-        node switch-db.js sqlite
-    else
-        echo "❌ ERROR: switch-db.js not found!"
-    fi
+    echo "❌ ERROR: switch-db.js not found!"
+    ls -la
+    exit 1
 fi
+
+echo "📄 Verifying schema provider:"
+grep "provider" prisma/schema.prisma
 
 echo "🔄 Generating Prisma Client..."
 npx prisma generate --schema=prisma/schema.prisma
