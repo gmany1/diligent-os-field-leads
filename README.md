@@ -85,6 +85,13 @@ npm run build        # Create production build
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run db:setup     # Setup and seed database
+
+# Versioning & Releases
+npm run release              # Create patch release (0.0.X)
+npm run release:minor        # Create minor release (0.X.0)
+npm run release:major        # Create major release (X.0.0)
+npm run release:first        # Create first release
+
 node verify-system.js # Verify system configuration
 ```
 
@@ -143,6 +150,8 @@ For Docker deployment, see `Dockerfile` and `DEPLOYMENT.md`.
 
 ## 📚 Documentation
 
+- [Versioning Guide](VERSIONING.md) - **NEW!** Semantic versioning and release process
+- [Commit Conventions](.github/COMMIT_CONVENTION.md) - Quick reference for conventional commits
 - [Implementation Plan](IMPLEMENTATION_PLAN.md)
 - [Deployment Guide](DEPLOYMENT.md)
 - [Fixes Applied](FIXES_APPLIED.md)
@@ -188,10 +197,21 @@ PORT=3001 npm run dev
 
 ## 🤝 Contributing
 
+We use **Conventional Commits** and **Semantic Versioning**. Please follow these steps:
+
 1. Create a feature branch
-2. Make your changes
+2. Make your changes following [Commit Conventions](.github/COMMIT_CONVENTION.md)
 3. Run tests and linting
 4. Submit a pull request
+
+**Example commits:**
+```bash
+feat(leads): add advanced search functionality
+fix(auth): resolve session timeout issue
+docs(readme): update installation instructions
+```
+
+See [VERSIONING.md](VERSIONING.md) for complete guidelines.
 
 ## 📄 License
 

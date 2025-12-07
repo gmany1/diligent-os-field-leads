@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:setup": "prisma db push && node seed.js"
+    "db:setup": "prisma db push && node seed.js",
+    "prepare": "husky",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "release:first": "standard-version --first-release"
   },
   "dependencies": {
     "@hono/zod-validator": "^0.7.5",
@@ -38,6 +43,8 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
     "@tailwindcss/cli": "^4.1.17",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/bcryptjs": "^2.4.6",
@@ -47,7 +54,9 @@
     "@types/webpack": "^5.28.5",
     "eslint": "^9",
     "eslint-config-next": "16.0.5",
+    "husky": "^9.1.7",
     "null-loader": "^4.0.1",
+    "standard-version": "^9.5.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.6",
     "typescript": "^5",
