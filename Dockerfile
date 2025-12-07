@@ -77,5 +77,5 @@ ENV HOSTNAME="0.0.0.0"
 
 
 
-ENTRYPOINT ["./entrypoint.sh"]
-CMD ["node", "server.js"]
+# ENTRYPOINT ["./entrypoint.sh"] -- Removing to prevent override issues
+CMD ["./entrypoint.sh", "node", "server.js"]
