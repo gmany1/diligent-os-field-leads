@@ -227,6 +227,65 @@ app.get('/leads', async (c) => {
   }
 })
 
+app.post('/leads', async (c) => {
+  try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+
+    const body = await c.req.json()
+    const { name, phone, email, address, industry, source, notes, branchId, vacancies, vacanciesNote } = body
+
+    if (!name) {
+      return c.json({ error: 'Name is required' }, 400)
+    }
+
+    const lead = await prisma.lead.create({
+      data: {
+        name,
+        phone,
+        email,
+        address,
+        industry,
+        source: source || 'MANUAL',
+        notes,
+        branchId,
+        vacancies: vacancies || 0,
+        vacanciesNote,
+        stage: 'COLD',
+        assignedToId: session.user.id
+      },
+      include: {
+        branch: true,
+        assignedTo: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        }
+      }
+    })
+
+    // Audit log
+    await prisma.auditLog.create({
+      data: {
+        action: 'CREATE',
+        entity: 'LEAD',
+        entityId: lead.id,
+        userId: session.user.id,
+        details: JSON.stringify({ name: lead.name }),
+        ipAddress: c.req.header('x-forwarded-for') || 'unknown',
+        userAgent: c.req.header('user-agent'),
+      }
+    })
+
+    return c.json({ success: true, data: lead }, 201)
+  } catch (e: any) {
+    logger.error({ err: e }, 'CREATE LEAD ERROR')
+    return c.json({ error: e.message }, 500)
+  }
+})
+
 app.get('/leads/:id', async (c) => {
   try {
     const session = await auth()
