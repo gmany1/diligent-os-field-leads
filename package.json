@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:setup": "prisma db push && node seed.js",
+    "db:sqlite": "node switch-db.js sqlite",
+    "db:postgres": "node switch-db.js postgres",
     "prepare": "husky",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
