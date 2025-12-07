@@ -59,10 +59,12 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY entrypoint.sh ./
 COPY switch-db.js ./
 COPY prisma ./prisma
-RUN chmod +x entrypoint.sh
 
-# Install global tools for migration and seeding
-RUN npm install -g prisma tsx
+# Install global tools and dependencies
+RUN npm install -g prisma tsx && npm install bcryptjs
+
+# Fix line endings for Windows compatibility
+RUN apk add --no-cache dos2unix && dos2unix entrypoint.sh && chmod +x entrypoint.sh
 
 USER nextjs
 

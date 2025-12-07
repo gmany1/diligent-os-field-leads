@@ -1,7 +1,5 @@
 #!/bin/sh
 echo "--- 🚀 DILIGENT OS STARTUP ---"
-echo "📂 Working Directory: $(pwd)"
-ls -la
 
 # Force switch to Postgres if DATABASE_URL starts with postgres
 if echo "$DATABASE_URL" | grep -q "^postgres"; then
@@ -13,14 +11,12 @@ else
 fi
 
 echo "🔄 Generating Prisma Client..."
-prisma generate
+prisma generate --schema=prisma/schema.prisma
 
 echo "📦 Pushing database references..."
-# Using global prisma
-prisma db push --accept-data-loss --skip-generate
+prisma db push --schema=prisma/schema.prisma --accept-data-loss --skip-generate
 
 echo "🌱 Seeding database..."
-# Run the seed script with tsx (since it is TypeScript)
 tsx prisma/seed.ts || echo "⚠️ Seed failed (possibly already seeded)"
 
 echo "✅ Database ready!"
