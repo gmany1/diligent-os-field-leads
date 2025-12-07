@@ -390,6 +390,220 @@ app.get('/quotes', async (c) => {
   }
 })
 
+app.post('/quotes', async (c) => {
+  try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+
+    const body = await c.req.json()
+    const { amount, leadId, status } = body
+
+    if (!amount || !leadId) {
+      return c.json({ error: 'Missing required fields' }, 400)
+    }
+
+    // Verify access to lead
+    const scope = getScope(session)
+    const lead = await prisma.lead.findFirst({ where: { id: leadId, ...scope } })
+    if (!lead) {
+      return c.json({ error: 'Lead not found or unauthorized' }, 403)
+    }
+
+    const quote = await prisma.quote.create({
+      data: {
+        amount: parseFloat(amount),
+        status: status || 'DRAFT',
+        leadId,
+        createdById: session.user.id,
+        pdfUrl: null
+      },
+      include: {
+        lead: {
+          select: {
+            id: true,
+            name: true
+          }
+        },
+        createdBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        }
+      }
+    })
+
+    // Update lead stage if needed
+    if (status === 'SENT' && lead.stage === 'HOT') {
+      await prisma.lead.update({
+        where: { id: leadId },
+        data: { stage: 'QUOTE' }
+      })
+    }
+
+    return c.json({ success: true, data: quote }, 201)
+  } catch (e: any) {
+    logger.error({ err: e }, 'CREATE QUOTE ERROR')
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+app.patch('/quotes/:id', async (c) => {
+  try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+    const id = c.req.param('id')
+
+    const quote = await prisma.quote.findFirst({
+      where: { id },
+      include: { lead: true }
+    })
+
+    if (!quote) {
+      return c.json({ error: 'Quote not found' }, 404)
+    }
+
+    const scope = getScope(session)
+    const lead = await prisma.lead.findFirst({
+      where: { id: quote.leadId, ...scope }
+    })
+
+    if (!lead) {
+      return c.json({ error: 'Unauthorized' }, 403)
+    }
+
+    const body = await c.req.json()
+    const updatedQuote = await prisma.quote.update({
+      where: { id },
+      data: body,
+      include: {
+        lead: true,
+        createdBy: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        }
+      }
+    })
+
+    return c.json({ success: true, data: updatedQuote })
+  } catch (e: any) {
+    logger.error({ err: e }, 'UPDATE QUOTE ERROR')
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+// --- ACTIVITIES ---
+app.get('/activities', async (c) => {
+  try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+    const scope = getScope(session)
+
+    const { searchParams } = new URL(c.req.url)
+    const leadId = searchParams.get('leadId')
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '20')
+
+    const where: any = {
+      lead: scope
+    }
+
+    if (leadId) {
+      where.leadId = leadId
+    }
+
+    const total = await prisma.activity.count({ where })
+    const activities = await prisma.activity.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      skip: (page - 1) * limit,
+      take: limit,
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        lead: {
+          select: {
+            id: true,
+            name: true
+          }
+        }
+      }
+    })
+
+    return c.json({
+      data: activities,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit)
+      }
+    })
+  } catch (e: any) {
+    logger.error({ err: e }, 'ACTIVITIES ERROR')
+    return c.json({ error: e.message }, 500)
+  }
+})
+
+app.post('/activities', async (c) => {
+  try {
+    const session = await auth()
+    if (!session) return c.json({ error: 'Unauthorized' }, 401)
+
+    const body = await c.req.json()
+    const { type, description, leadId, date } = body
+
+    if (!type || !description || !leadId) {
+      return c.json({ error: 'Missing required fields' }, 400)
+    }
+
+    const scope = getScope(session)
+    const lead = await prisma.lead.findFirst({ where: { id: leadId, ...scope } })
+    if (!lead) {
+      return c.json({ error: 'Lead not found or unauthorized' }, 403)
+    }
+
+    const activity = await prisma.activity.create({
+      data: {
+        type,
+        description,
+        leadId,
+        userId: session.user.id,
+        date: date ? new Date(date) : new Date()
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true
+          }
+        },
+        lead: {
+          select: {
+            id: true,
+            name: true
+          }
+        }
+      }
+    })
+
+    return c.json({ success: true, data: activity }, 201)
+  } catch (e: any) {
+    logger.error({ err: e }, 'CREATE ACTIVITY ERROR')
+    return c.json({ error: e.message }, 500)
+  }
+})
+
 // --- CCPA ---
 app.get('/privacy/export', async (c) => {
   try {
