@@ -61,6 +61,9 @@ COPY switch-db.js ./
 COPY prisma ./prisma
 RUN chmod +x entrypoint.sh
 
+# Install global tools for migration and seeding
+RUN npm install -g prisma tsx
+
 USER nextjs
 
 EXPOSE 3000
