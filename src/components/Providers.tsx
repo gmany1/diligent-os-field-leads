@@ -18,7 +18,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <ResponsiveThemeHandler />
+                        {/* <ResponsiveThemeHandler />  Removed to allow manual toggle */}
                         {children}
                     </ThemeProvider>
                 </OfflineProvider>
