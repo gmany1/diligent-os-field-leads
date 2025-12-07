@@ -1,10 +1,14 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { Users, Shield, Mail, Building2, Calendar, Edit, Trash2, UserPlus } from 'lucide-react';
-import Link from 'next/link';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { Users, Shield, Mail, Building2, Edit, Trash2, UserPlus } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function UsersPage() {
+    const queryClient = useQueryClient();
+    const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+
     const { data: users, isLoading, error } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
@@ -13,6 +17,39 @@ export default function UsersPage() {
             return res.json();
         }
     });
+
+    const handleDelete = async (userId: string, userName: string) => {
+        if (deleteConfirm !== userId) {
+            setDeleteConfirm(userId);
+            toast.warning(`Click delete again to confirm deletion of ${userName}`);
+            setTimeout(() => setDeleteConfirm(null), 3000);
+            return;
+        }
+
+        try {
+            const res = await fetch(`/api/users/${userId}`, {
+                method: 'DELETE',
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                if (data.details) {
+                    toast.error(`Cannot delete user: Has ${data.details.leads} leads, ${data.details.activities} activities, ${data.details.quotes} quotes, ${data.details.commissions} commissions`);
+                } else {
+                    toast.error(data.error || 'Failed to delete user');
+                }
+                return;
+            }
+
+            toast.success('User deleted successfully');
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+            setDeleteConfirm(null);
+        } catch (error) {
+            toast.error('Failed to delete user');
+            console.error(error);
+        }
+    };
 
     if (isLoading) {
         return (
@@ -58,7 +95,10 @@ export default function UsersPage() {
                         Manage user accounts and permissions
                     </p>
                 </div>
-                <button className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                <button
+                    onClick={() => toast.info('User creation form coming soon')}
+                    className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                >
                     <UserPlus size={20} className="mr-2" />
                     Add User
                 </button>
@@ -126,6 +166,9 @@ export default function UsersPage() {
                                     Branch
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    Activity
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                     Created
                                 </th>
                                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -163,13 +206,26 @@ export default function UsersPage() {
                                         {user.branch?.name || 'No branch'}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        <div className="text-xs">
+                                            {user._count?.leads || 0} leads, {user._count?.activities || 0} activities
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                         {new Date(user.createdAt).toLocaleDateString()}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3">
+                                        <button
+                                            onClick={() => toast.info('Edit user form coming soon')}
+                                            className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3"
+                                            title="Edit user"
+                                        >
                                             <Edit size={16} />
                                         </button>
-                                        <button className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
+                                        <button
+                                            onClick={() => handleDelete(user.id, user.name || user.email)}
+                                            className={`${deleteConfirm === user.id ? 'text-red-900 dark:text-red-200' : 'text-red-600 dark:text-red-400'} hover:text-red-900 dark:hover:text-red-300 transition-colors`}
+                                            title={deleteConfirm === user.id ? 'Click again to confirm' : 'Delete user'}
+                                        >
                                             <Trash2 size={16} />
                                         </button>
                                     </td>
