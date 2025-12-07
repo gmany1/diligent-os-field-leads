@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from '@prisma/client';
+import { PrismaClient, Role, LeadStage, LeadSource, ActivityType, QuoteStatus, CommissionStatus } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -63,10 +63,6 @@ const ORGANIZATION = [
         branchId: 'BR-004',
         password: 'password123'
     },
-    // Wait, San Antonio manager is not in your explicit list, but we have a branch. 
-    // I will add a placeholder for completeness matching the branch list if desired, 
-    // but I will stick STRICTLY to your provided list first.
-
     // Staffing Reps
     {
         name: 'Amanda Rodriguez',
@@ -93,7 +89,7 @@ const ORGANIZATION = [
         name: 'Kevin Anderson',
         email: 'sales.rep@diligentos.com',
         role: Role.SALES_REP,
-        branchId: 'BR-003', // El Monte per request
+        branchId: 'BR-003', // El Monte
         password: 'password123'
     },
     // Legacy / Basic Users
@@ -113,8 +109,41 @@ const ORGANIZATION = [
     }
 ];
 
+// Helper to get random item from array
+const random = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
+
+// Helper to generate large number of leads
+const generateLeads = (count: number, users: any[]) => {
+    const leads = [];
+    const industries = ['Manufacturing', 'Healthcare', 'Retail', 'Technology', 'Logistics', 'Hospitality', 'Construction', 'Finance'];
+
+    for (let i = 0; i < count; i++) {
+        // Assign to a Staffing Rep or Manager (users with a branchId)
+        const possibleAssignees = users.filter(u => u.branchId !== null);
+        const asignee = random(possibleAssignees);
+        const branch = BRANCHES.find(b => b.id === asignee.branchId);
+
+        if (!branch) continue;
+
+        const stage = random(Object.values(LeadStage));
+        const status = ['NEW', 'CONTACTED', 'QUALIFIED', 'PROPOSAL', 'NEGOTIATION', 'CLOSED'][Math.floor(Math.random() * 6)];
+
+        leads.push({
+            name: `${industries[Math.floor(Math.random() * industries.length)]} Corp ${i + 1}`,
+            stage: stage as LeadStage,
+            branchId: branch.id,
+            branchString: branch.id, // For legacy support
+            source: random(Object.values(LeadSource)) as LeadSource,
+            assignedToEmail: asignee.email, // We'll resolve ID later
+            notes: `Auto-generated lead for ${branch.name} market needs.`,
+            value: Math.floor(Math.random() * 50000) + 5000
+        });
+    }
+    return leads;
+};
+
 async function main() {
-    console.log('🌱 Starting Seed...');
+    console.log('🌱 Starting Comprehensive Seed...');
 
     // 1. Seed Branches
     for (const b of BRANCHES) {
@@ -135,12 +164,12 @@ async function main() {
 
     // 2. Seed Organization Users
     const hashedPassword = await hash('password123', 10);
+    const userMap = new Map(); // Store email -> id mapping
 
     for (const u of ORGANIZATION) {
-        await prisma.user.upsert({
+        const user = await prisma.user.upsert({
             where: { email: u.email },
             update: {
-                // Force update details to ensure they match the list provided
                 role: u.role,
                 branchId: u.branchId,
                 name: u.name,
@@ -154,13 +183,14 @@ async function main() {
                 branchId: u.branchId
             }
         });
+        userMap.set(u.email, user.id);
         console.log(`Created/Updated User: ${u.name} [${u.role}]`);
     }
 
-    // 3. Seed Sample Leads
-    console.log('🌱 Seeding Sample Leads...');
+    // 3. Seed Sample Leads (Specific High Value Ones)
+    console.log('🌱 Seeding High Value Leads...');
 
-    // Sample: LA Lead (Visible to Sarah Williams & Amanda Rodriguez)
+    // LA Lead
     await prisma.lead.create({
         data: {
             name: 'LA Downtown Gym',
@@ -172,18 +202,19 @@ async function main() {
         }
     });
 
-    // Sample: San Antonio Lead (Visible to Jessica Wilson)
+    // San Antonio Lead
     await prisma.lead.create({
         data: {
             name: 'Alamo Logistics Center',
             stage: 'HOT',
             branchId: 'BR-005',
             branchString: 'San Antonio',
+            assignedToId: userMap.get('staffing.sa@diligentos.com'),
             notes: 'Urgent need for 50+ workers.'
         }
     });
 
-    // Sample: El Monte Lead (Visible to Jennifer Davis & Kevin Anderson)
+    // El Monte Lead
     await prisma.lead.create({
         data: {
             name: 'San Gabriel Valley Tech Park',
@@ -193,6 +224,37 @@ async function main() {
             notes: 'Pending final contract review.'
         }
     });
+
+    // 4. Seed Volume Leads (for dashboard charts)
+    console.log('🌱 Seeding Volume Leads (50+)...');
+    const volumeLeads = generateLeads(50, ORGANIZATION);
+
+    for (const lead of volumeLeads) {
+        const createdLead = await prisma.lead.create({
+            data: {
+                name: lead.name,
+                stage: lead.stage,
+                branchId: lead.branchId,
+                branchString: lead.branchString,
+                source: lead.source,
+                assignedToId: userMap.get(lead.assignedToEmail),
+                notes: lead.notes,
+                potentialValue: lead.value
+            }
+        });
+
+        // Add some random activity
+        if (Math.random() > 0.5) {
+            await prisma.activity.create({
+                data: {
+                    type: random([ActivityType.CALL, ActivityType.EMAIL, ActivityType.MEETING]),
+                    description: 'Initial outreach and follow-up',
+                    leadId: createdLead.id,
+                    userId: userMap.get(lead.assignedToEmail) || userMap.get('ceo@diligentos.com') // Fallback to CEO if user not found
+                }
+            });
+        }
+    }
 
     console.log('✅ Leads Seeded.');
     console.log('✅ Seed Complete.');
