@@ -3,7 +3,7 @@ import { handle } from 'hono/vercel'
 import { prisma } from '@/lib/prisma'
 
 import { auth } from '@/auth'
-import { logger } from '@/lib/logger'
+import { log } from '@/lib/logger'
 import { register, httpRequestDurationMicroseconds, httpRequestsTotal } from '@/lib/metrics'
 
 export const runtime = 'nodejs'
@@ -41,7 +41,7 @@ app.use('*', async (c, next) => {
   httpRequestDurationMicroseconds.labels(method, url, status.toString()).observe(duration)
   httpRequestsTotal.labels(method, url, status.toString()).inc()
 
-  logger.info({
+  log.info({
     requestId,
     method,
     url,
@@ -52,7 +52,7 @@ app.use('*', async (c, next) => {
 })
 
 app.onError((err, c) => {
-  logger.error({ err, url: c.req.path }, 'HONO ERROR')
+  log.error({ err, url: c.req.path }, 'HONO ERROR')
   return c.json({ error: err.message, stack: process.env.NODE_ENV === 'development' ? err.stack : undefined }, 500)
 })
 
@@ -168,7 +168,7 @@ app.get('/stats', async (c) => {
       }
     })
   } catch (e: any) {
-    logger.error({ err: e }, 'STATS ERROR')
+    log.error({ err: e }, 'STATS ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -222,7 +222,7 @@ app.get('/leads', async (c) => {
       }
     })
   } catch (e: any) {
-    logger.error({ err: e }, 'LEADS ERROR')
+    log.error({ err: e }, 'LEADS ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -281,7 +281,7 @@ app.post('/leads', async (c) => {
 
     return c.json({ success: true, data: lead }, 201)
   } catch (e: any) {
-    logger.error({ err: e }, 'CREATE LEAD ERROR')
+    log.error({ err: e }, 'CREATE LEAD ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -444,7 +444,7 @@ app.post('/quotes', async (c) => {
 
     return c.json({ success: true, data: quote }, 201)
   } catch (e: any) {
-    logger.error({ err: e }, 'CREATE QUOTE ERROR')
+    log.error({ err: e }, 'CREATE QUOTE ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -491,7 +491,7 @@ app.patch('/quotes/:id', async (c) => {
 
     return c.json({ success: true, data: updatedQuote })
   } catch (e: any) {
-    logger.error({ err: e }, 'UPDATE QUOTE ERROR')
+    log.error({ err: e }, 'UPDATE QUOTE ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -549,7 +549,7 @@ app.get('/activities', async (c) => {
       }
     })
   } catch (e: any) {
-    logger.error({ err: e }, 'ACTIVITIES ERROR')
+    log.error({ err: e }, 'ACTIVITIES ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -599,7 +599,7 @@ app.post('/activities', async (c) => {
 
     return c.json({ success: true, data: activity }, 201)
   } catch (e: any) {
-    logger.error({ err: e }, 'CREATE ACTIVITY ERROR')
+    log.error({ err: e }, 'CREATE ACTIVITY ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
@@ -756,7 +756,7 @@ app.get('/reports/manager', async (c) => {
     return c.json({ pipeline, activity })
 
   } catch (e: any) {
-    logger.error({ err: e }, 'MANAGER REPORT ERROR')
+    log.error({ err: e }, 'MANAGER REPORT ERROR')
     return c.json({ error: e.message }, 500)
   }
 })
