@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Building2, Users, TrendingUp, MapPin, Plus } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 export default function BranchesAllPage() {
     const { data: branches, isLoading } = useQuery({
@@ -116,12 +117,12 @@ export default function BranchesAllPage() {
                             </div>
 
                             <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                                <button
-                                    onClick={() => toast.info('Branch details coming soon')}
-                                    className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                                <Link
+                                    href={`/branches/${branch.id}`}
+                                    className="w-full flex items-center justify-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors font-medium"
                                 >
-                                    View Details
-                                </button>
+                                    Enter Nexus
+                                </Link>
                             </div>
                         </div>
                     </div>
