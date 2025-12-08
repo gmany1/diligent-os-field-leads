@@ -1,5 +1,5 @@
 import { getCommissions } from '@/lib/commission-actions';
-import MarkPaidButton from '@/components/commissions/MarkPaidButton';
+import CommissionActionMenu from '@/components/commissions/CommissionActionMenu';
 import { DollarSign, Users, AlertCircle } from 'lucide-react';
 
 export default async function TeamCommissionsPage() {
@@ -84,7 +84,7 @@ export default async function TeamCommissionsPage() {
                                  {new Date(comm.createdAt).toLocaleDateString()}
                               </td>
                               <td className="px-6 py-4">
-                                 <MarkPaidButton id={comm.id} status={comm.status} />
+                                 <CommissionActionMenu id={comm.id} status={comm.status} />
                               </td>
                            </tr>
                         ))

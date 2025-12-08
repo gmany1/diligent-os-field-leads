@@ -79,20 +79,26 @@ export async function getCommissions(scope: CommissionScope = 'MINE') {
     return { commissions, stats };
 }
 
-export async function markCommissionAsPaid(commissionId: string) {
+export async function updateCommissionStatus(commissionId: string, status: string) {
     const session = await auth();
-    // In real app: stricter checks
     if (!session?.user) throw new Error('Unauthorized');
 
-    // Only Managers or Execs can mark as paid
-    // Check user role... logic simplified for speed
+    // In a real app, strict RBAC here (only Managers can APPROVE, only Finance can PAY)
+    // For now, we allow any authorized user (checked by UI usually, but backend should verify role)
+    const userRole = session.user.role;
+    const allowedRoles = ['BRANCH_MANAGER', 'CEO', 'CAO', 'DOO', 'IT_SUPER_ADMIN'];
+    if (!allowedRoles.includes(userRole)) {
+        return { success: false, error: 'Insufficient permissions' };
+    }
+
+    const data: any = { status };
+    if (status === 'PAID') {
+        data.paidAt = new Date();
+    }
 
     await prisma.commission.update({
         where: { id: commissionId },
-        data: {
-            status: 'PAID',
-            paidAt: new Date()
-        }
+        data
     });
 
     return { success: true };
