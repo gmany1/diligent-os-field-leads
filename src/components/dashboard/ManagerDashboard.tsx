@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 import TeamPerformance from './TeamPerformance';
 import RecentWins from './RecentWins'; // Keeping RecentWins as it fits "Validation"
@@ -9,6 +10,7 @@ import PipelineFunnel from './PipelineFunnel';
 import SourceEffectivenessChart from './SourceEffectivenessChart';
 
 export default function ManagerDashboard() {
+    const { data: session } = useSession();
     const { data: statsData, isLoading } = useQuery({
         queryKey: ['dashboard-stats', 'MANAGER'],
         queryFn: async () => {
@@ -36,7 +38,7 @@ export default function ManagerDashboard() {
         <div className="space-y-8">
             {/* 1. The Vision (Control) - Top KPIs */}
             <div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Hello, Jesus (LA Branch)</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Hello, {session?.user?.name?.split(' ')[0] || 'Manager'}</h2>
                 <p className="text-sm text-gray-500 mb-6">Here is your branch performance overview.</p>
 
                 {/* Manager KPIs */}

@@ -86,7 +86,7 @@ export default function AppSidebar() {
         <>
             {/* Mobile Header & Toggle */}
             <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 z-50 flex items-center px-4 justify-between">
-                <Link href="/" className="text-xl font-bold text-indigo-600 dark:text-indigo-400">DiligentOS</Link>
+                <Link href="/" className="text-xl font-bold text-indigo-600 dark:text-indigo-400 relative z-50 pointer-events-auto">DiligentOS</Link>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className="p-2 rounded-md text-gray-600 dark:text-gray-200"

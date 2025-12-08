@@ -254,8 +254,10 @@ export default function ClientHome({ searchParams }: { searchParams: any }) {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white ml-12">Dashboard</h1>
           </div>
 
-          {/* Role Switcher for Demo */}
-          <DashboardSwitcher currentRole={mockRole} onRoleChange={setMockRole} />
+          {/* Role Switcher for Demo - Only for Admins/Execs */}
+          {(session?.user?.role === 'IT_ADMIN' || session?.user?.role === 'EXECUTIVE') && (
+            <DashboardSwitcher currentRole={mockRole} onRoleChange={setMockRole} />
+          )}
 
           {/* Role-Based Views */}
           {mockRole === 'EXECUTIVE' && <CEODashboard />}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 import Link from 'next/link';
 import DailyFocusWidget from './DailyFocusWidget';
@@ -14,6 +15,7 @@ interface RepDashboardProps {
 }
 
 export default function RepDashboard({ onAddLeadClick, onViewCalendarClick }: RepDashboardProps) {
+    const { data: session } = useSession();
     const { data: statsData, isLoading } = useQuery({
         queryKey: ['dashboard-stats', 'REP'],
         queryFn: async () => {
@@ -36,7 +38,7 @@ export default function RepDashboard({ onAddLeadClick, onViewCalendarClick }: Re
             {/* 1. Top Bar: Quick Actions & Welcome */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Hello, Manuel! 👋</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Hello, {session?.user?.name?.split(' ')[0] || 'Partner'}! 👋</h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Ready to capture Los Angeles today?</p>
                 </div>
                 <div className="flex gap-3 w-full sm:w-auto">
