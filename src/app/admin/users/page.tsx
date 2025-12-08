@@ -1,9 +1,10 @@
 'use client';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Users, Shield, Mail, Building2, Edit, Trash2, UserPlus, X } from 'lucide-react';
+import { Users, Shield, Mail, Building2, Edit, Trash2, UserPlus, X, User } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 interface EditUserData {
     id: string;
@@ -214,16 +215,28 @@ export default function UsersPage() {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        Password (leave blank to keep current)
+                                    </label>
+                                    <input
+                                        type="password"
+                                        value={editForm.password}
+                                        onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
+                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                        placeholder="New password"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                         Role
                                     </label>
                                     <select
                                         value={editForm.role}
                                         onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
                                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                        required
                                     >
-                                        <option value="">Select role...</option>
-                                        {roles.map(role => (
+                                        <option value="">Select Role</option>
+                                        {roles.map((role) => (
                                             <option key={role} value={role}>{role.replace(/_/g, ' ')}</option>
                                         ))}
                                     </select>
@@ -238,9 +251,9 @@ export default function UsersPage() {
                                         onChange={(e) => setEditForm({ ...editForm, branchId: e.target.value })}
                                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                     >
-                                        <option value="">No branch</option>
+                                        <option value="">No Branch</option>
                                         {branches?.map((branch: any) => (
-                                            <option key={branch.id} value={branch.id}>{branch.name}</option>
+                                            <option key={branch.id} value={branch.id}>{branch.name} ({branch.code})</option>
                                         ))}
                                     </select>
                                 </div>
@@ -254,20 +267,7 @@ export default function UsersPage() {
                                         value={editForm.territory}
                                         onChange={(e) => setEditForm({ ...editForm, territory: e.target.value })}
                                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                        placeholder="Optional"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                                        New Password (leave blank to keep current)
-                                    </label>
-                                    <input
-                                        type="password"
-                                        value={editForm.password}
-                                        onChange={(e) => setEditForm({ ...editForm, password: e.target.value })}
-                                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-                                        placeholder="Enter new password or leave blank"
+                                        placeholder="Optional (e.g., Downtown)"
                                     />
                                 </div>
 
@@ -390,6 +390,12 @@ export default function UsersPage() {
                             </div>
 
                             <div className="flex justify-end pt-2 space-x-3 border-t border-gray-100 dark:border-gray-700 mt-2">
+                                <Link
+                                    href={`/admin/users/${user.id}`}
+                                    className="flex items-center text-gray-600 hover:text-indigo-600 dark:text-gray-400"
+                                >
+                                    <User size={16} className="mr-1" /> Profile
+                                </Link>
                                 <button
                                     onClick={() => handleEditClick(user)}
                                     className="flex items-center text-indigo-600 hover:text-indigo-900"
@@ -470,20 +476,29 @@ export default function UsersPage() {
                                         {new Date(user.createdAt).toLocaleDateString()}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button
-                                            onClick={() => handleEditClick(user)}
-                                            className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3"
-                                            title="Edit user"
-                                        >
-                                            <Edit size={16} />
-                                        </button>
-                                        <button
-                                            onClick={() => handleDelete(user.id, user.name || user.email)}
-                                            className={`${deleteConfirm === user.id ? 'text-red-900 dark:text-red-200' : 'text-red-600 dark:text-red-400'} hover:text-red-900 dark:hover:text-red-300 transition-colors`}
-                                            title={deleteConfirm === user.id ? 'Click again to confirm' : 'Delete user'}
-                                        >
-                                            <Trash2 size={16} />
-                                        </button>
+                                        <div className="flex justify-end space-x-3">
+                                            <Link
+                                                href={`/admin/users/${user.id}`}
+                                                className="text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400"
+                                                title="View Nexus Profile"
+                                            >
+                                                <User size={18} />
+                                            </Link>
+                                            <button
+                                                onClick={() => handleEditClick(user)}
+                                                className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                                title="Edit user"
+                                            >
+                                                <Edit size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(user.id, user.name || user.email)}
+                                                className={`${deleteConfirm === user.id ? 'text-red-900 dark:text-red-200' : 'text-red-600 dark:text-red-400'} hover:text-red-900 dark:hover:text-red-300 transition-colors`}
+                                                title={deleteConfirm === user.id ? 'Click again to confirm' : 'Delete user'}
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
@@ -494,3 +509,4 @@ export default function UsersPage() {
         </div>
     );
 }
+
