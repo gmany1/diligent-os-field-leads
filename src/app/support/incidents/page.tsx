@@ -26,7 +26,33 @@ export default function SupportIncidentsPage() {
             </h1>
 
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <table className="w-full text-left">
+                {/* Mobile Cards */}
+                <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
+                    {items.length === 0 ? (
+                        <div className="p-8 text-center text-gray-500">No active support tickets.</div>
+                    ) : items.map((tkt: any) => (
+                        <div key={tkt.id} className="p-4 space-y-2">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h3 className="font-bold text-gray-900 dark:text-white text-sm">{tkt.subject}</h3>
+                                    <p className="text-xs font-mono text-gray-400 mt-1">{tkt.id} • {new Date(tkt.created).toLocaleDateString()}</p>
+                                </div>
+                                <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-semibold ${tkt.status === 'Open' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+                                    {tkt.status}
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${tkt.priority === 'High' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'}`}>
+                                    {tkt.priority} Priority
+                                </span>
+                                <button className="text-indigo-600 text-sm font-medium">View Ticket</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop Table */}
+                <table className="hidden md:table w-full text-left">
                     <thead className="bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
                         <tr>
                             <th className="px-6 py-4 font-semibold text-gray-500">Ticket ID</th>

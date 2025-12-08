@@ -355,9 +355,60 @@ export default function UsersPage() {
                 </div>
             </div>
 
-            {/* Users Table */}
+            {/* Users Table (Desktop) & Cards (Mobile) */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
-                <div className="overflow-x-auto">
+                {/* Mobile View */}
+                <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
+                    {users?.map((user: any) => (
+                        <div key={user.id} className="p-4 space-y-3">
+                            <div className="flex items-start justify-between">
+                                <div className="flex items-center space-x-3">
+                                    <div className="h-10 w-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-lg">
+                                            {user.name?.charAt(0) || user.email.charAt(0).toUpperCase()}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-gray-900 dark:text-white">{user.name || 'No name'}</p>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+                                    </div>
+                                </div>
+                                <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getRoleBadgeColor(user.role)}`}>
+                                    {user.role.replace(/_/g, ' ')}
+                                </span>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                    <p className="text-gray-500 text-xs uppercase">Branch</p>
+                                    <p className="font-medium dark:text-gray-300">{user.branch?.name || 'No branch'}</p>
+                                </div>
+                                <div>
+                                    <p className="text-gray-500 text-xs uppercase">Activity</p>
+                                    <p className="font-medium dark:text-gray-300">{user._count?.leads || 0} leads, {user._count?.activities || 0} acts</p>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-end pt-2 space-x-3 border-t border-gray-100 dark:border-gray-700 mt-2">
+                                <button
+                                    onClick={() => handleEditClick(user)}
+                                    className="flex items-center text-indigo-600 hover:text-indigo-900"
+                                >
+                                    <Edit size={16} className="mr-1" /> Edit
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(user.id, user.name || user.email)}
+                                    className={`flex items-center ${deleteConfirm === user.id ? 'text-red-900' : 'text-red-600'}`}
+                                >
+                                    <Trash2 size={16} className="mr-1" /> {deleteConfirm === user.id ? 'Confirm' : 'Delete'}
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop View */}
+                <div className="hidden md:block overflow-x-auto">
                     <table className="w-full">
                         <thead className="bg-gray-50 dark:bg-gray-700">
                             <tr>

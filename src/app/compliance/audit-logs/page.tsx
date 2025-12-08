@@ -42,7 +42,34 @@ export default function AuditLogsPage() {
                         <input type="text" placeholder="Search by user, action or resource..." className="pl-10 pr-4 py-2 w-full border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all" />
                     </div>
                 </div>
-                <table className="w-full text-left text-sm">
+
+                {/* Mobile Cards */}
+                <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
+                    {logs.map((log: any) => (
+                        <div key={log.id} className="p-4 space-y-2">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="font-bold text-gray-900 dark:text-white text-sm">{log.user}</p>
+                                    <p className="text-xs text-gray-500">{new Date(log.timestamp).toLocaleString()}</p>
+                                </div>
+                                <span className="px-2 py-1 rounded bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300 font-semibold text-xs whitespace-nowrap">
+                                    {log.action}
+                                </span>
+                            </div>
+                            <div>
+                                <p className="text-xs font-semibold text-gray-500 uppercase">Resource</p>
+                                <p className="text-sm text-gray-700 dark:text-gray-300">{log.resource}</p>
+                            </div>
+                            <div>
+                                <p className="text-xs font-semibold text-gray-500 uppercase">Details</p>
+                                <p className="text-sm text-gray-500 italic dark:text-gray-400">{log.details}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop Table */}
+                <table className="hidden md:table w-full text-left text-sm">
                     <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-700 font-medium text-gray-500 uppercase tracking-wider">
                         <tr>
                             <th className="px-6 py-3">Timestamp</th>

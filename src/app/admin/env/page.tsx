@@ -98,7 +98,38 @@ export default function EnvVarsPage() {
          </div>
 
          <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden md:min-w-[800px]">
-            <table className="w-full text-left border-collapse">
+            {/* Mobile Cards */}
+            <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
+               {isCreating && (
+                  <div className="p-4 bg-indigo-50 dark:bg-indigo-900/10 space-y-3">
+                     <input className="w-full p-2 border rounded text-sm font-mono" placeholder="MY_NEW_VAR" value={newVar.key} onChange={e => setNewVar({ ...newVar, key: e.target.value })} />
+                     <input className="w-full p-2 border rounded text-sm font-mono" placeholder="Value..." value={newVar.value} onChange={e => setNewVar({ ...newVar, value: e.target.value })} />
+                     <input className="w-full p-2 border rounded text-sm" placeholder="Description" value={newVar.description} onChange={e => setNewVar({ ...newVar, description: e.target.value })} />
+                     <div className="flex justify-end space-x-2">
+                        <button onClick={() => createMutation.mutate(newVar)} className="px-3 py-1 bg-green-600 text-white rounded text-sm">Save</button>
+                        <button onClick={() => setIsCreating(false)} className="px-3 py-1 bg-gray-200 text-gray-700 rounded text-sm">Cancel</button>
+                     </div>
+                  </div>
+               )}
+               {envs.map((env: any) => (
+                  <div key={env.key} className="p-4 space-y-2">
+                     <div className="flex justify-between items-start">
+                        <span className="font-mono text-indigo-600 dark:text-indigo-400 font-bold text-sm break-all">{env.key}</span>
+                        <div className="flex space-x-1">
+                           <button onClick={() => { navigator.clipboard.writeText(env.value) }} className="p-1.5 text-gray-400 hover:text-gray-600 rounded bg-gray-50 dark:bg-gray-700"><Copy size={14} /></button>
+                           <button onClick={() => { if (confirm('Delete?')) deleteMutation.mutate(env.key); }} className="p-1.5 text-red-400 hover:text-red-600 rounded bg-gray-50 dark:bg-gray-700"><Trash2 size={14} /></button>
+                        </div>
+                     </div>
+                     <div className="font-mono text-gray-600 dark:text-gray-300 text-sm break-all bg-gray-50 dark:bg-gray-900/50 p-2 rounded">
+                        {showSecrets ? env.value : '••••••••••••••••'}
+                     </div>
+                     <p className="text-xs text-gray-500 italic">{env.description || 'No description'}</p>
+                  </div>
+               ))}
+            </div>
+
+            {/* Desktop Table */}
+            <table className="hidden md:table w-full text-left border-collapse">
                <thead className="bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
                   <tr>
                      <th className="px-6 py-4 font-mono text-xs text-gray-500 uppercase">Variable Key</th>

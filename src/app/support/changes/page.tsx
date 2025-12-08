@@ -25,7 +25,35 @@ export default function ChangeRequestsPage() {
             </h1>
 
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <table className="w-full text-left">
+                {/* Mobile Cards */}
+                <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
+                    {items.map((item: any) => (
+                        <div key={item.id} className="p-4 space-y-2">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h3 className="font-bold text-gray-900 dark:text-white text-sm">{item.title}</h3>
+                                    <p className="text-xs font-mono text-gray-400 mt-1">{item.id}</p>
+                                </div>
+                                <span className={`px-2 py-1 rounded text-xs font-semibold ${item.type === 'Feature' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'}`}>
+                                    {item.type}
+                                </span>
+                            </div>
+                            <div className="flex justify-between items-center mt-2">
+                                <div className="text-xs text-gray-500">{new Date(item.date).toLocaleDateString()}</div>
+                                <div>
+                                    {item.status === 'Approved' ? (
+                                        <span className="flex items-center text-green-600 font-medium text-xs"><CheckCircle size={12} className="mr-1" /> Approved</span>
+                                    ) : (
+                                        <span className="flex items-center text-yellow-600 font-medium text-xs"><Clock size={12} className="mr-1" /> Pending</span>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop Table */}
+                <table className="hidden md:table w-full text-left">
                     <thead className="bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
                         <tr>
                             <th className="px-6 py-4 font-semibold text-gray-500">ID</th>

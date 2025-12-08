@@ -31,7 +31,32 @@ export default function PiiAccessPage() {
             </div>
 
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <table className="w-full text-left text-sm">
+                {/* Mobile Cards */}
+                <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
+                    {accesses.map((item: any) => (
+                        <div key={item.id} className="p-4 space-y-2">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="font-bold text-gray-900 dark:text-white">{item.user}</p>
+                                    <p className="text-xs text-gray-500">{new Date(item.time).toLocaleString()}</p>
+                                </div>
+                                <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-mono">
+                                    {item.field}
+                                </span>
+                            </div>
+                            <div className="text-sm">
+                                <span className="text-gray-500">Subject: </span>
+                                <span className="font-medium dark:text-gray-300">{item.subject}</span>
+                            </div>
+                            <div className="text-sm text-gray-600 italic bg-gray-50 dark:bg-gray-700/30 p-2 rounded">
+                                " {item.reason} "
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop Table */}
+                <table className="hidden md:table w-full text-left text-sm">
                     <thead className="bg-red-50 dark:bg-red-900/10 border-b border-red-100 dark:border-red-900/20">
                         <tr>
                             <th className="px-6 py-3 font-semibold text-red-800 dark:text-red-300">Time</th>

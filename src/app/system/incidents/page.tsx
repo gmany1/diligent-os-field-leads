@@ -59,7 +59,40 @@ export default function SystemIncidentsPage() {
             </div>
 
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <table className="w-full text-left">
+                {/* Mobile Cards */}
+                <div className="md:hidden divide-y divide-gray-200 dark:divide-gray-700">
+                    {items.length === 0 ? (
+                        <div className="p-8 text-center text-gray-500">
+                            <CheckCircle className="mx-auto text-green-500 mb-2" size={32} />
+                            No active incidents
+                        </div>
+                    ) : (
+                        items.map((inc: any) => (
+                            <div key={inc.id} className="p-4 space-y-3">
+                                <div className="flex justify-between items-start">
+                                    <div className="flex items-center space-x-2">
+                                        <SeverityIcon level={inc.severity} />
+                                        <h3 className="font-bold text-gray-900 dark:text-white truncate max-w-[150px]">{inc.title}</h3>
+                                    </div>
+                                    <StatusBadge status={inc.status} />
+                                </div>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">{inc.description}</p>
+                                <div className="flex justify-between items-center text-xs text-xs text-gray-500">
+                                    <span className="font-mono">{inc.service}</span>
+                                    <span>{new Date(inc.createdAt || Date.now()).toLocaleDateString()}</span>
+                                </div>
+                                <div className="pt-2">
+                                    <button className="w-full py-2 bg-gray-50 dark:bg-gray-700 text-indigo-600 text-sm font-medium rounded border border-gray-200 dark:border-gray-600">
+                                        Manage Incident
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+
+                {/* Desktop Table */}
+                <table className="hidden md:table w-full text-left">
                     <thead className="bg-gray-50 dark:bg-gray-750 border-b border-gray-200 dark:border-gray-700">
                         <tr>
                             <th className="px-6 py-4 font-semibold text-gray-500">Severity</th>
