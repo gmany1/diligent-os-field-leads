@@ -9,3 +9,5 @@ export const log = {
     warn: (msg: string, data?: object) =>
         console.warn(JSON.stringify({ level: 'warn', msg, ...data, ts: new Date().toISOString() })),
 };
+
+export const logger = log;
