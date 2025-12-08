@@ -19,6 +19,7 @@ export default async function UserNexusPage({ params }: { params: Promise<{ id: 
         where: { id },
         include: {
             branch: true,
+            documents: true,
             _count: {
                 select: { leads: true }
             }
