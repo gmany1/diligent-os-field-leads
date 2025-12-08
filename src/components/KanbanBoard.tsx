@@ -104,12 +104,12 @@ export default function KanbanBoard({ leads, onUpdateStage }: KanbanBoardProps) 
     };
 
     return (
-        <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-4 md:overflow-x-auto pb-4 md:snap-x min-h-[calc(100vh-12rem)]">
             {STAGES.map((stage) => (
                 <div
                     key={stage}
-                    className={`min-w-[280px] flex-1 rounded-lg border-2 border-dashed ${draggedLeadId ? 'border-indigo-300 bg-indigo-50/30' : 'border-gray-200 bg-gray-50/50'
-                        } p-4 dark:border-gray-700 dark:bg-gray-800/50 snap-center`}
+                    className={`w-full md:min-w-[300px] md:w-80 flex-shrink-0 rounded-xl border-2 border-dashed ${draggedLeadId ? 'border-indigo-300 bg-indigo-50/30' : 'border-gray-200 bg-gray-50/50'
+                        } p-3 md:p-4 dark:border-gray-700 dark:bg-gray-800/50 md:snap-center flex flex-col`}
                     onDragOver={handleDragOver}
                     onDrop={(e) => handleDrop(e, stage)}
                 >
