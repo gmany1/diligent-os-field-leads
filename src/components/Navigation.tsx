@@ -18,7 +18,10 @@ export default function Navigation() {
         { name: 'History', href: '/history', icon: History },
         // Only show Migration to Admins/Executives
         ...(session?.user?.role === 'IT_ADMIN' || session?.user?.role === 'EXECUTIVE'
-            ? [{ name: 'Migration', href: '/admin/migration', icon: Database }]
+            ? [
+                { name: 'Integrations', href: '/admin/integrations', icon: Database }, // Reusing Database icon or similar
+                { name: 'Migration', href: '/admin/migration', icon: History } // Changed icon slightly to differentiate if needed, or keep same
+            ]
             : [])
     ];
 
