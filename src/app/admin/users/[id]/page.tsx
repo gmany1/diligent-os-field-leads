@@ -3,13 +3,13 @@ import { prisma } from '@/lib/prisma';
 import UserNexusClient from '@/components/users/UserNexusClient';
 import { auth } from '@/auth';
 
-export default async function UserNexusPage({ params }: { params: { id: string } }) {
+export default async function UserNexusPage({ params }: { params: Promise<{ id: string }> }) {
     const session = await auth();
     if (!session?.user) {
         redirect('/login');
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     // Fetch User Data for Server Side Rendering (SSR) SEO & Speed
     // We fetch basic data here, but for the full 'Nexus' experience with complex stats,

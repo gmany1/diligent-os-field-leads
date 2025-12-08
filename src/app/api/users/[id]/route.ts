@@ -2,14 +2,14 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 
-export async function GET(request: Request, context: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     try {
         const session = await auth();
         if (!session?.user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { id } = context.params;
+        const { id } = await params;
 
         // Fetch User with deeply nested relations for the "Nexus" view
         const user = await prisma.user.findUnique({
@@ -40,7 +40,7 @@ export async function GET(request: Request, context: { params: { id: string } })
 
         // Fetch recent Audit Logs for this user (Actions they performed)
         // Assuming AuditLog model has 'userId' field
-        let recentActivity = [];
+        let recentActivity: any[] = [];
         try {
             recentActivity = await prisma.auditLog.findMany({
                 where: { userId: id },

@@ -4,7 +4,7 @@ import BranchDetailsClient from '@/components/branches/BranchDetailsClient';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 
-export default async function BranchPage({ params }: { params: { id: string } }) {
+export default async function BranchPage({ params }: { params: Promise<{ id: string }> }) {
     const session = await auth();
     if (!session?.user) {
         redirect('/login');
@@ -13,7 +13,7 @@ export default async function BranchPage({ params }: { params: { id: string } })
     // In strict RBAC, checking if user has access to THIS branch would happen here.
     // For now, allowing all authorized users to view (or relying on menu-config to hide it).
 
-    const { id } = params;
+    const { id } = await params;
 
     const branch = await prisma.branch.findUnique({
         where: { id },
