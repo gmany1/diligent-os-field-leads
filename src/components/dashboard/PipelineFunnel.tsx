@@ -16,7 +16,7 @@ export default function PipelineFunnel({ data }: { data?: any[] }) {
         <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6 h-full">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Pipeline Health</h3>
             <div className="h-[300px] w-full min-w-0">
-                <ResponsiveContainer width="99%" height="100%" debounce={200}>
+                <ResponsiveContainer width="99%" height="100%" debounce={200} minWidth={0}>
                     <FunnelChart>
                         <Tooltip />
                         <Funnel

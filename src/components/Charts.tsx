@@ -64,7 +64,7 @@ export default function Charts({ leads, onStageClick }: ChartsProps) {
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Pipeline Overview</h3>
                 <div className="h-[300px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <BarChart data={pipelineData} onClick={(data: any) => {
                             if (data && data.activePayload && data.activePayload.length > 0 && onStageClick) {
                                 onStageClick(data.activePayload[0].payload.name);
@@ -88,7 +88,7 @@ export default function Charts({ leads, onStageClick }: ChartsProps) {
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
                 <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Weekly Lead Volume</h3>
                 <div className="h-[300px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
+                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                         <LineChart data={trendData}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="date" tickFormatter={(str) => str.slice(5)} />
