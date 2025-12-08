@@ -119,9 +119,9 @@ export const MENU_CONFIG: MenuItem[] = [
     {
         name: 'Branches',
         icon: Building2,
-        roles: MANAGER_ROLES,
+        roles: [...MANAGER_ROLES, ...IT_ROLES],
         items: [
-            { name: 'All Branches', href: '/branches/all', roles: EXEC_ROLES },
+            { name: 'All Branches', href: '/branches/all', roles: [...EXEC_ROLES, ...IT_ROLES] },
             { name: 'My Branch', href: '/branches/mine', roles: ['BRANCH_MANAGER'] },
             { name: 'Performance', href: '/branches/performance', roles: EXEC_ROLES },
             { name: 'Manage', href: '/branches/manage', roles: [...EXEC_ROLES, ...IT_ROLES] },
