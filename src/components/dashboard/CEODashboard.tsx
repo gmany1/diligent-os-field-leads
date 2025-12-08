@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 import SalesVelocityChart from './SalesVelocityChart';
 import MarketSegmentAnalysis from './MarketSegmentAnalysis';
 import GrowthTrendChart from './GrowthTrendChart';
@@ -9,6 +10,7 @@ import LeadMapWidget from './LeadMapWidget';
 import AIInsights from '../AIInsights';
 
 export default function CEODashboard() {
+    const { data: session } = useSession();
     const { data: analytics, isLoading: statsLoading } = useQuery({
         queryKey: ['analytics'],
         queryFn: async () => {
@@ -32,7 +34,7 @@ export default function CEODashboard() {
             <div>
                 <div className="flex justify-between items-end mb-6">
                     <div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome, Sal & Ana</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome, {session?.user?.name?.split(' ')[0] || 'Executive'}</h2>
                         <p className="text-sm text-gray-500 dark:text-gray-400">Strategic insights for Q4 2024</p>
                     </div>
                     <div className="flex gap-2">
