@@ -33,6 +33,23 @@ enum LeadStage {
   LOST
 }
 
+enum CommissionStatus {
+  PENDING
+  APPROVED
+  PROCESSING
+  PAID
+  DISPUTED
+  REJECTED
+}
+
+enum DocumentType {
+  I9
+  W4
+  CONTRACT
+  NDA
+  OTHER
+}
+
 model Branch {
   id        String   @id @default(cuid())
   name      String
@@ -40,6 +57,7 @@ model Branch {
   city      String
   state     String
   code      String   @unique // BR-001
+  status    String   @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -67,6 +85,18 @@ model User {
   quotes      Quote[]
   commissions Commission[]
   auditLogs   AuditLog[]
+  documents   UserDocument[]
+}
+
+model UserDocument {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  type      DocumentType
+  url       String
+  name      String
+  
+  uploadedAt DateTime @default(now())
 }
 
 model Lead {
@@ -142,7 +172,7 @@ model Commission {
   id          String  @id @default(cuid())
   amount      Float
   rateApplied Float // e.g. 0.1000
-  status      String  @default("PENDING") // PENDING, PAID, REJECTED
+  status      CommissionStatus  @default(PENDING)
 
   userId String
   user   User   @relation(fields: [userId], references: [id])

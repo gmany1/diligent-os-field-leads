@@ -16,6 +16,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
             where: { id },
             include: {
                 branch: true,
+                documents: true, // Fetch documents
                 _count: {
                     select: {
                         leads: true,

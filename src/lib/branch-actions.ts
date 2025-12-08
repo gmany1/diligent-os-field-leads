@@ -90,46 +90,27 @@ export async function deleteBranch(id: string): Promise<ActionResponse> {
     const session = await auth();
     const role = session?.user?.role;
 
-    if (role !== 'IT_SUPER_ADMIN' && role !== 'IT_ADMIN') {
-        return { success: false, error: 'Unauthorized: Only IT Admins can delete branches' };
+    if (role !== 'IT_SUPER_ADMIN' && role !== 'IT_ADMIN' && role !== 'CEO') {
+        return { success: false, error: 'Unauthorized: Only IT Admins/CEO can archive branches' };
     }
 
     try {
-        // SAFETY CHECK 1: Active Users
-        const userCount = await prisma.user.count({
-            where: { branchId: id }
+        // Soft Delete: Mark as ARCHIVED
+        // We do NOT block even if users/leads exist, preserving history.
+
+        await prisma.branch.update({
+            where: { id },
+            data: { status: 'ARCHIVED' }
         });
 
-        if (userCount > 0) {
-            return {
-                success: false,
-                error: `Cannot delete: Branch has ${userCount} assigned users. Reassign them first.`
-            };
-        }
-
-        // SAFETY CHECK 2: Active Leads
-        const leadCount = await prisma.lead.count({
-            where: { branchId: id }
-        });
-
-        if (leadCount > 0) {
-            // Note: Schema might restrict this via foreign key constraints anyway, but good to have explicit msg
-            return {
-                success: false,
-                error: `Cannot delete: Branch has ${leadCount} associated leads. Archive or transfer them first.`
-            };
-        }
-
-        await prisma.branch.delete({
-            where: { id }
-        });
+        // Optional: We could also deactivate all users in this branch, but let's keep it simple for now as requested.
 
         revalidatePath('/branches/manage');
         revalidatePath('/branches/all');
         return { success: true };
 
     } catch (error) {
-        console.error('Failed to delete branch:', error);
-        return { success: false, error: 'Failed to delete branch.' };
+        console.error('Failed to archive branch:', error);
+        return { success: false, error: 'Failed to archive branch.' };
     }
 }
