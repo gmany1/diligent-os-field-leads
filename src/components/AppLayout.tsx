@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import AppSidebar from './AppSidebar';
+import Breadcrumbs from './Breadcrumbs';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -11,6 +12,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
             {!isLoginPage && <AppSidebar />}
             <main className={`flex-1 transition-all duration-200 ${!isLoginPage ? 'md:pl-64 pt-16 md:pt-0' : ''}`}>
+                {!isLoginPage && (
+                    <div className="pt-4 px-8 pb-0 md:hidden lg:block">
+                        <Breadcrumbs />
+                    </div>
+                )}
                 {children}
             </main>
         </div>

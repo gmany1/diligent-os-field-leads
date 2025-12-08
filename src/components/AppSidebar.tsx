@@ -102,7 +102,7 @@ export default function AppSidebar() {
             `}>
                 {/* Desktop Logo */}
                 <div className="hidden md:flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-800 shrink-0">
-                    <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">DiligentOS</span>
+                    <Link href="/" className="text-xl font-bold text-indigo-600 dark:text-indigo-400 hover:opacity-80 transition-opacity">DiligentOS</Link>
                 </div>
 
                 {/* Primary Action Button */}
